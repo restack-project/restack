@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - 'release'
+  paths:
+    include:
+      - 'src/python/pyrestack/__init__.py'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- script: pip install wheel
+- script: pip install twine 
+- script: pip install build
+
+- task: TwineAuthenticate@1
+  inputs:
+    pythonUploadServiceConnection: 'PyPi Floris'
+
+- script: python -m build
+  workingDirectory: $(Build.SourcesDirectory)/src/python
+
+- script: python -m twine upload --non-interactive -r "pyrestack" --config-file $(PYPIRC_PATH) dist/*.whl
+  workingDirectory: $(Build.SourcesDirectory)/src/python

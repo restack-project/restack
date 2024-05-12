@@ -1,0 +1,117 @@
+﻿@page "/stacks/{QueryStackId}"
+
+@inherits SubscribeComponent
+
+<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+    @if (LoadError)
+    {
+        <p>No stack found, go back to the <a href="/stacks">overview</a></p>
+    }
+    else
+    {
+        @if (Stack is not null)
+        {
+            <div class="flex flex-wrap justify-between items-start mb-6">
+                <div class="flex items-center">
+                    <a href="/stacks" class="pe-2 py-2">
+                        <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
+                    </a>
+                    <h1 class="text-xl md:text-3xl ms-2">@Stack.Name</h1>
+                </div>
+                <div class="w-full md:w-fit flex md:block mt-2">
+                    <a href="@($"/stacks/{StackId}/edit")"
+                       class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center text-gray-100 bg-gray-500 hover:bg-gray-600 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                        Edit
+                    </a>
+                    <a @onclick="Execute" @onclick:preventDefault="true"
+                       class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-400 dark:bg-primary-500 dark:hover:bg-primary-600">
+                        Execute
+                    </a>
+                </div>
+            </div>
+
+            <Panel CssClass="flex flex-wrap items-center justify-between text-sm">
+                <div class="p-2 md:p-6">
+                    <p class="mb-1 text-xs">Success rate</p>
+                    <p class="text-center md:text-md font-bold">@Stack.SuccesPercentage %</p>
+                </div>
+                <div class="p-2 md:p-6">
+                    <p class="mb-1 text-xs">Last executed</p>
+                    <p class="text-center md:text-md font-bold">@(Stack.LastJob is not null ? Stack.LastJob.Started.ToAgo() : "none")</p>
+                </div>
+                <div class="p-2 md:p-6">
+                    <p class="mb-1 text-xs">Avg. runtime</p>
+                    <p class="text-center md:text-md font-bold">@Stack.AverageRuntime.ToDuration()</p>
+                </div>
+            </Panel>
+
+            <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                <div class="flex items-center">
+                    <div class="me-4 p-1">
+                        <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Jobs</button>
+                    </div>
+                </div>
+            </div>
+
+            <Panel CssClass="flex flex-wrap items-center justify-between">
+
+                @if (!IsLoadingJobs && !Jobs.Any())
+                {
+                    <p class="text-sm p-2 w-full text-center">No jobs found, go <a @onclick="Execute" class="link cursor-pointer">execute</a> your first one!</p>
+                }
+                else
+                {
+                    <Loader ShowOverlay="true" Visible="IsLoadingJobs" />
+
+                    <div class="flex items-center w-full justify-between px-4 py-6 text-2xs border-b border-gray-200 dark:border-neutral-500">
+                        <p class="w-[2rem]">Sequence</p>
+                        <p>State</p>
+                        <p class="w-[6rem] text-end">Last executed</p>
+                    </div>
+
+                    @if (Jobs is not null)
+                    {
+                        lock (_jobLock)
+                        {
+                            @foreach (var job in Jobs)
+                            {
+                                <a href="@($"/stacks/{StackId}/job/{job.Id}")" class="flex w-full items-center justify-between px-4 py-4 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
+
+                                    <div class="flex items-center text-md w-[2rem]">
+                                        <p class="ms-2 font-bold">@job.Sequence</p>
+                                    </div>
+
+                                    <div class="text-sm">
+                                        <JobStateLabel Job="job" />
+                                    </div>
+
+                                    <div class="text-sm w-[6rem] pe-2 text-end">
+                                        @if (job.State != JobState.Running.ToString() && job.State != JobState.Queued.ToString())
+                                        {
+                                            <p>@job.Started.ToAgo()</p>
+                                        }
+                                    </div>
+
+                                </a>
+                            }
+                        }
+                    }
+
+                    @if (_skipJobs <= Jobs.Count)
+                    {
+                        <div class="w-full flex justify-between mt-4 p-2 md:p-4">
+
+                            <div>
+                                <button class="p-2 rounded text-sm py-2 px-4 shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 "
+                                        @onclick="LoadMoreJobs">
+                                    Load more
+                                </button>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </Panel>
+        }
+    }
+</Page>

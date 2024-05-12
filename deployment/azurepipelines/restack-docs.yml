@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - release
+  paths:
+    include:
+    - src/docs/*
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  persistCredentials: true
+  fetchDepth: 0
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install mkdocs-material 
+    
+    mkdocs build --config-file $(Build.SourcesDirectory)/src/docs/mkdocs.yml --site-dir $(Build.SourcesDirectory)/docs
+  displayName: 'MkDocs Build'
+
+- bash: |
+    git config user.name "docs-bot@restack-project.com"
+    git config user.email "Example@example.com"
+
+    git checkout release --
+    git add --all
+    git commit -m "Generating docs for $(Build.BuildNumber)"
+    git push origin release
+  displayName: Git Push

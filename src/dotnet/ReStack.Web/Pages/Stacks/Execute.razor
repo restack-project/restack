@@ -1,0 +1,99 @@
+﻿@page "/stacks/{QueryStackId}/job/{QueryJobId}"
+
+@inherits SubscribeComponent
+
+<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+    @if (LoadError)
+    {
+        <p>No stack found, go back to the <a href="/stacks" class="link">overview</a></p>
+    }
+    else
+    {
+        @if (Stack is not null)
+        {
+            <div class="flex flex-wrap justify-between items-start mb-6">
+                <div class="flex items-center">
+                    <a href="@($"/stacks/{StackId}")" class="pe-2 py-2">
+                        <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
+                    </a>
+                    <h1 class="text-xl md:text-3xl ms-2">Job: #@Job.Sequence - <span class="text-lg">@Stack.Name</span></h1>
+                </div>
+                <div class="w-full md:w-fit flex md:block mt-2">
+                    @if (Job.State == JobState.Queued.ToString() || Job.State == JobState.Running.ToString())
+                    {
+                        <a @onclick="Cancel" @onclick:preventDefault="true"
+                           class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                            Cancel
+                        </a>
+                    }
+                    else
+                    {
+                        <a @onclick="Delete" @onclick:preventDefault="true"
+                           class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                            Delete
+                        </a>
+                    }
+                    <a @onclick="ExecuteNew" @onclick:preventDefault="true"
+                       class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-200 dark:bg-primary-500 dark:hover:bg-primary-600">
+                        Execute new
+                    </a>
+                </div>
+            </div>
+
+            <Panel CssClass="flex flex-wrap items-center justify-between text-sm">
+                <div class="p-2 md:p-6">
+                    <p class="mb-2 text-xs">State</p>
+                    <p class="text-center md:text-md font-bold">
+                        <JobStateLabel Job="Job" ShowLabel="true" />
+                    </p>
+                </div>
+                <div class="p-2 md:p-6">
+                    <p class="mb-2 text-xs">Started</p>
+                    <p class="text-center md:text-md font-bold">@Job.Started.ToAgo()</p>
+                </div>
+                <div class="p-2 md:p-6">
+                    <p class="mb-2 text-xs">Duration</p>
+                    <p class="text-center md:text-md font-bold">@Job.Duration.ToDuration()</p>
+                </div>
+            </Panel>
+
+            <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                <div class="flex items-center">
+                    <div class="me-4 p-1">
+                        <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Logs</button>
+                    </div>
+                </div>
+            </div>
+
+            <Panel CssClass="">
+
+                @if (Job?.Logs is null || Job.Logs.Count == 0)
+                {
+                    <p class="p-2 m-auto">No logs found</p>
+                }
+                else
+                {
+                    <div class="overflow-auto">
+                        @lock (_logLock)
+                        {
+                            <Virtualize Items="Job.Logs" Context="log">
+                                <p class="flex flex-wrap p-2 hover:bg-gray-400 dark:hover:bg-neutral-600">
+                                    <div class="w-[12rem] text-sm">
+                                        <span class="">@log.Timestamp</span>
+                                    </div>
+                                    <div class="w-[5rem] text-sm">
+                                        <span class="@(log.Error ? "text-red-500" : "text-primary-300")">[@(log.Error ? "ERROR" : "INFO")]</span>
+                                    </div>
+                                    <div class="w-full mt-2 ps-3 md:ps-0 md:mt-0 md:w-[calc(100%-17rem)] break-words">
+                                        <span class="fs-9">@log.Message</span>
+                                    </div>
+                                </p>
+                            </Virtualize>
+                        }
+                    </div>
+                }
+
+            </Panel>
+        }
+    }
+</Page>

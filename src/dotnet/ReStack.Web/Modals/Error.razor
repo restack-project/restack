@@ -1,0 +1,91 @@
+﻿<h1 class="text-2xl mb-2">
+    @if (Unhandled)
+    {
+        @:A learing experience has occured <u>for us</u>.
+    }
+    else
+    {
+        @:A learning experience has occured.
+    }
+</h1>
+
+@if (Unhandled)
+{
+    <div class="my-6">
+        <h2 class="text-xl mb-4">What happended?</h2>
+        <p class="text-sm mb-1">Thanks for discovering this hidden feature. Obviously this is not supposed to happen. By <a href="@WebSettings.Value.TicketUrl" target="_blank">logging</a> this as an issue, you will contribute to a better and more stable product!</p>
+        <p class="text-sm">Please include the techincal error if present & some steps to reproduce if possible.</p>
+    </div>
+}
+else
+{
+    @if (!string.IsNullOrWhiteSpace(Issue.Value))
+    {
+        <div class="my-8">
+            <h2 class="text-md mb-4 font-bold">What's the issue?</h2>
+            <p class="fst-italic text-sm">@Issue</p>
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Cause.Value))
+    {
+        <div class="my-8">
+            <h2 class="text-md mb-4 font-bold">What can be the cause?</h2>
+            <p class="fst-italic text-sm">@Cause</p>
+        </div>
+    }
+}
+
+<div class="mt-8">
+    <div class="col-12 d-flex flex-wrap">
+
+        @if (Actions is object)
+        {
+            @foreach (var action in Actions)
+            {
+                <div class="w-full p-2">
+                    <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="async() => await action.Value">@action.Key</button>
+                </div>
+            }
+        }
+
+        <div class="flex flex-wrap gap-2 md:flex-nowrap justify-between items-center">
+            @if (Unhandled)
+            {
+                <div class="w-full">
+                    <a class="w-full cursor-pointer block text-center bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" role="button" href="@WebSettings.Value.TicketUrl" target="_blank">Log new issue</a>
+                </div>
+            }
+
+            <div class="w-full">
+                <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="() => NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true)">Reload the page</button>
+            </div>
+
+            @if (Exception is object)
+            {
+                <div class="w-full">
+                    <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="ToggleTechnicalError">@(ShowTechincalError ? "Hide" : "Show") technical info</button>
+                </div>
+            }
+
+            <div class="w-full">
+                <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="async() => await BlazoredModal.CancelAsync()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowTechincalError)
+{
+    <div class="relative mt-4 mb-2 rounded p-2 overflow-auto max-h-60 bg-gray-300 dark:bg-neutral-800">
+        <ButtonCopy CssClass="text-sm px-2 p-1 rounded absolute top-0 end-0 me-2 mt-2 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+                    Value="@(async() => Exception.Message + Environment.NewLine + Exception.StackTrace)">
+            <Icon Type="FontAwesomeIcons.Copy" />
+        </ButtonCopy>
+
+        <div class="p-2">
+            <p class="text-xs mb-3">@Exception.Message</p>
+            <p class="text-xs italic">@Exception.StackTrace</p>
+        </div>
+    </div>
+}

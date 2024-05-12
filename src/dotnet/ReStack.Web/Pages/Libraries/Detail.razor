@@ -1,0 +1,112 @@
+﻿@page "/libraries/{QueryLibraryId}"
+
+@inherits BaseComponent
+
+<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+    @if (LoadError)
+    {
+        <p>No library found, go back to the <a href="/libraries" class="link">overview</a></p>
+    }
+    else
+    {
+        @if (Library is not null)
+        {
+            <div class="flex flex-wrap justify-between items-start mb-6">
+                <div class="flex items-center">
+                    <a href="/libraries" class="pe-2 py-2">
+                        <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
+                    </a>
+                    <h1 class="text-xl md:text-3xl ms-2">@Library.Name</h1>
+                </div>
+                <div class="w-full md:w-fit flex md:block mt-2">
+                    <a @onclick="Sync" @onclick:preventDefault="true"
+                       class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-400 dark:bg-primary-500 dark:hover:bg-primary-600">
+                        Sync
+                    </a>
+                </div>
+            </div>
+
+            <Panel CssClass="flex flex-wrap items-center justify-between text-sm">
+                <div class="p-2 py-3 w-1/2 md:p-6 w-full md:w-1/2 break-words">
+                    <p class="mb-1 text-xs">Owners</p>
+                    <p class="md:text-md font-bold">@Library.CodeOwners</p>
+                </div>
+                <div class="p-2 py-3 w-1/2 md:p-6 w-full md:w-1/2 break-words">
+                    <p class="mb-1 text-xs">Version</p>
+                    <p class="md:text-md font-bold">@Library.Version</p>
+                </div>
+                <div class="p-2 py-3 w-1/2 md:p-6 w-full md:w-1/2 break-words">
+                    <p class="mb-1 text-xs">Documentation</p>
+                    <a href="@Library.Documentation" target="_blank" class="md:text-md font-bold link">@Library.Documentation</a>
+                </div>
+                <div class="p-2 py-3 w-1/2 md:p-6 w-full md:w-1/2 break-words">
+                    <p class="mb-1 text-xs">Repository</p>
+                    <a href="@Library.SourceRepository" target="_blank" class="md:text-md font-bold link">@Library.SourceRepository</a>
+                </div>
+                <div class="p-2 py-3 w-1/2 md:p-6 w-full md:w-1/2 break-words">
+                    <p class="mb-1 text-xs">Type</p>
+                    <p class="md:text-md font-bold">@Library.Type</p>
+                </div>
+            </Panel>
+
+            <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                <div class="flex items-center">
+                    <div class="me-4 p-1">
+                        <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Components</button>
+                    </div>
+                </div>
+            </div>
+
+            <Panel>
+
+                @if (Library.Components.Any())
+                {
+                    <div class="flex items-center justify-between px-2 py-3 md:px-4 md:py-6 text-2xs border-b border-gray-200 dark:border-neutral-500">
+                        <p>Name</p>
+                        <p>Parameters</p>
+                    </div>
+
+                    @foreach (var component in Library.Components)
+                    {
+                        <div class="flex items-center justify-between px-2 py-3 md:px-4 md:py-6 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
+
+                            <div class="md:text-md text-sm w-full">
+                                <p class="ms-2 font-bold">@component.Name</p>
+                            </div>
+
+                            <div class="md:text-md text-sm flex justify-end w-full">
+                                <p>@string.Join(", ", component.Parameters.Select(x => x.Name))</p>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </Panel>
+
+
+            <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                <div class="flex items-center">
+                    <div class="me-4 p-1">
+                        <button class="me-4 border-b-4 px-1 cursor-pointer border-red-500">Danger zone</button>
+                    </div>
+                </div>
+            </div>
+
+            <Panel CssClass="p-4">
+
+                <div class="flex justify-between flex-wrap gap-4">
+                    <div>
+                        <p class="text-lg mb-2">Delete library?</p>
+                        <p class="text-sm italic">This will delete the library. Any used component will not work anymore.</p>
+                    </div>
+
+                    <button @onclick="Delete"
+                            class="rounded font-bold w-full md:w-fit py-2 px-6 text-red-500 bg-gray-400 hover:bg-gray-500 dark:bg-neutral-700 dark:hover:bg-neutral-600">
+                        Delete
+                    </button>
+                </div>
+
+            </Panel>
+        }
+    }
+</Page>

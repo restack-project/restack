@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - release
+  paths:
+    exclude:
+    - deployment/azurepipelines/*
+    - docs/*
+    - src/docs/*
+
+pool:
+  name: ARM
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'elentriek/restack-api'
+    command: 'buildAndPush'
+    dockerfile: '**/ReStack.Api/Dockerfile_ARM64'
+    buildContext: '$(Build.SourcesDirectory)/src/dotnet'
+    tags: |
+      arm-latest
+      arm-$(Build.BuildId)

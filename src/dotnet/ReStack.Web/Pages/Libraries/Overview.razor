@@ -1,0 +1,53 @@
+﻿@page "/libraries"
+
+@inherits BaseComponent
+
+<Page BreadcrumbLinks="BreadcrumbLinks">
+    <div class="flex flex-wrap justify-between items-start mb-6">
+        <h1 class="text-xl md:text-3xl">Libraries</h1>
+        <div class="w-full md:w-fit flex md:block mt-2">
+            <a @onclick="Add" @onclick:preventDefault="true"
+               class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-400 dark:bg-primary-500 dark:hover:bg-primary-600">
+                Add library
+            </a>
+        </div>
+    </div>
+
+    <Panel>
+
+        <Loader ShowOverlay="true" Visible="IsLoading" />
+
+        @if (!IsLoading && !Libraries.Any())
+        {
+            <div class="w-full h-full flex justify-center items-center min-h-20">
+                <p class="text-sm md:text-md">No library found, go <button @onclick="Add" class="link">add</button> your first one!</p>
+            </div>
+        }
+        else if (Libraries.Any())
+        {
+            <div class="flex items-center justify-between px-2 py-3 md:px-4 md:py-6 text-2xs border-b border-gray-200 dark:border-neutral-500">
+                <p>Name</p>
+                <p>Version</p>
+            </div>
+
+            <div>
+                @foreach (var library in Libraries)
+                {
+                    <a href="@($"libraries/{library.Id}")"
+                       class="flex items-center justify-between px-2 py-3 md:px-4 md:py-6 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
+
+                        <div class="flex items-center text-md">
+                            <p class="ms-2 font-bold">@library.Name</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p>@library.Version</p>
+                        </div>
+
+                    </a>
+                }
+            </div>
+        }
+
+    </Panel>
+</Page>

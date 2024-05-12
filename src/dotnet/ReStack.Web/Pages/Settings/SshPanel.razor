@@ -1,0 +1,38 @@
+﻿@inherits BaseComponent
+
+<div class="flex items-center justify-between text-sm mb-4">
+    <div class="flex items-center">
+        <div class="me-4 p-1">
+            <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">SSH</button>
+        </div>
+    </div>
+</div>
+
+<Panel CssClass="p-3">
+
+    <div class="flex flex-wrap md:flex-nowrap">
+        <div class="w-full mb-2">
+            <label class="w-full mb-4">
+                SSH Key
+            </label>
+            <p class="italic text-xs">This key is generated once at startup & used to connect to remote hosts</p>
+        </div>
+
+        <div class="w-full">
+            <input type="password" value="@Guid.NewGuid()" class="w-full block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+
+            <div class="flex mt-4 justify-end">
+                <div class="pe-1">
+                    <ButtonCopy CssClass="rounded text-sm py-2 px-4 shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600" Value="GetSshKey">
+                        Copy
+                    </ButtonCopy>
+                </div>
+                <div class="ps-1">
+                    <button class="rounded text-sm py-2 px-4 shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600"
+                            @onclick="Regenerate">Regenerate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</Panel>

@@ -1,0 +1,12 @@
+﻿<h4 class="md:text-2xl text-xl mb-4">@Title</h4>
+
+@if (!string.IsNullOrWhiteSpace(Body))
+{
+    <p class="mb-4 text-sm">@Body</p>
+}
+
+<div class="flex items-center justify-between gap-2 mt-8" role="group">
+    <button type="button" class="p-2 w-full text-gray-100 font-bold bg-primary-400 hover:bg-primary-500 rounded" @onclick="AnswerYes">Yes</button>
+    <button type="button" class="p-2 w-full bg-gray-300 hover:bg-gray-400 rounded dark:bg-neutral-500 dark:hover:bg-neutral-600" @onclick="AnswerNo">No</button>
+    <button type="button" class="p-2 w-full bg-gray-300 hover:bg-gray-400 rounded dark:bg-neutral-500 dark:hover:bg-neutral-600" @onclick="AnswerCancel">Cancel</button>
+</div>

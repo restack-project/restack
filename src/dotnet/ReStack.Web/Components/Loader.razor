@@ -1,0 +1,12 @@
+﻿@if (Visible)
+{
+    <div class="absolute top-0 bottom-0 start-0 end-0 flex justify-between items-baseline rounded z-50">
+
+        @if (ShowOverlay)
+        {
+            <div class="absolute top-0 bottom-0 start-0 end-0 bg-white opacity-10 z-50"></div>
+        }
+
+        <span class="loader bg-primary-100" style="width: @((int)Size)px; height: @((int)Size)px"></span>
+    </div>
+}

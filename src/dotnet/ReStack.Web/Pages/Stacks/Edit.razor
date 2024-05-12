@@ -1,0 +1,176 @@
+﻿@page "/stacks/{QueryStackId}/edit"
+@page "/stacks/add"
+
+@inherits BaseComponent
+
+<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+    @if (LoadError)
+    {
+        <p>No stack found, go back to the <a href="/stacks" class="link">overview</a></p>
+    }
+    else
+    {
+        @if (Stack is not null)
+        {
+            <div class="flex flex-wrap justify-between items-start mb-6">
+                <div class="flex items-center">
+                    <a href="@($"/stacks/{Stack.Id}")" class="pe-2 py-2">
+                        <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
+                    </a>
+                    @if (Stack.Id != 0)
+                    {
+                        <h1 class="text-xl md:text-3xl ms-2">@Stack.Name</h1>
+                    }
+                </div>
+                <div class="w-full md:w-fit flex md:block mt-2">
+                    <button @onclick="async() => await Save(true)"
+                            class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center text-gray-100 bg-gray-500 hover:bg-gray-600 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                        Save
+                    </button>
+                    @if (Stack.Id != 0)
+                    {
+                        <button @onclick="SaveAndExecute"
+                                class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-200 dark:bg-primary-500 dark:hover:bg-primary-600">
+                            Save & execute
+                        </button>
+                        <button @onclick="ToggleEditor"
+                                class="rounded text-sm py-3 px-6 hover:text-primary-500">
+                            @if (ShowEditor)
+                            {
+                                <Icon Type="FontAwesomeIcons.Gear" />
+                            }
+                            else
+                            {
+                                <Icon Type="FontAwesomeIcons.Code" />
+                            }
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div hidden="@(!ShowEditor)">
+                <Blace.Components.Editor @ref="Editor"
+                                         CssClass="!h-[calc(100vh-11rem)] !overflow-none"
+                                         SettingCssStyle="color: var(--main-font-color); background: var(--main-color-500); font-size: .8rem;"
+                                         T="Models.StackFile"
+                                         ShowSettings="true" />
+            </div>
+
+            if (!ShowEditor)
+            {
+                <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                    <div class="flex items-center">
+                        <div class="me-4 p-1">
+                            <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Settings</button>
+                        </div>
+                    </div>
+                </div>
+
+                <Panel CssClass="p-4">
+
+                    @if (EditContext is not null)
+                    {
+                        <EditForm EditContext="EditContext">
+
+                            <div class="">
+
+                                <DataAnnotationsValidator />
+
+                                <ValidationSummary />
+
+                                @if (Validations.Any())
+                                {
+                                    <ul class="validation-errors">
+                                        @foreach (var validation in Validations)
+                                        {
+                                            <li class="validation-message">@validation</li>
+                                        }
+                                    </ul>
+                                }
+
+                                <div class="mb-6">
+                                    <label class="mb-4 block">
+                                        <span class="text-sm w-full">Name</span>
+                                        <InputText @bind-Value="Stack.Name" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+                                    </label>
+
+                                    <div class="mb-4">
+                                        <label>
+                                            <span class="text-sm w-full">Run as</span>
+                                            <InputSelect @bind-Value="Stack.Type" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0">
+                                                @foreach (var type in Enum.GetValues<ProgrammingLanguage>())
+                                                {
+                                                    <option value="@type.ToString()">
+                                                        <span class="fs-9">@type</span>
+                                                    </option>
+                                                }
+                                            </InputSelect>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label class="flex items-center justify-start">
+                                            <InputCheckbox @bind-Value="Stack.FailOnStdError" class="me-2" />
+                                            <span class="">Fail on std error output</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="my-4">
+                                    <h2 class="text-xs italic mb-4">Libraries</h2>
+
+                                    <div class="px-4">
+                                        @if (ComponentLibraries is null || !ComponentLibraries.Any())
+                                        {
+                                            <p class="p-1">No libraries found, go <a href="/libraries" class="link">add</a> one.</p>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var library in ComponentLibraries)
+                                            {
+                                                <div>
+                                                    <label class="flex items-center justify-start">
+                                                        <InputCheckbox @bind-Value="library.InUse" class="me-2 accent-red-500" />
+                                                        <span class="">@library.Name</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </EditForm>
+                    }
+                </Panel>
+
+                @if (Stack.Id != 0)
+                {
+                    <div class="flex items-center justify-between text-sm mt-8 mb-4">
+                        <div class="flex items-center">
+                            <div class="me-4 p-1">
+                                <button class="me-4 border-b-4 px-1 cursor-pointer border-red-500">Danger zone</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Panel CssClass="p-4">
+
+                        <div class="flex justify-between flex-wrap gap-4">
+                            <div>
+                                <p class="text-lg mb-2">Delete stack?</p>
+                                <p class="text-sm italic">This will delete all the jobs and the source file of the script.</p>
+                            </div>
+
+                            <button @onclick="Delete"
+                                    class="rounded font-bold w-full md:w-fit py-2 px-6 text-red-500 bg-gray-400 hover:bg-gray-500 dark:bg-neutral-800 dark:hover:bg-neutral-600">
+                                Delete
+                            </button>
+                        </div>
+
+                    </Panel>
+                }
+            }
+        }
+    }
+</Page>

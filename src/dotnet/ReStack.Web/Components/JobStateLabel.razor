@@ -1,0 +1,30 @@
+﻿<p title="@Job?.State.ToString()">
+
+    @if (Job?.State == JobState.Queued.ToString())
+    {
+        <Icon Type="FontAwesomeIcons.CircleDot" Size="IconSize.Lg" CssClass="text-yellow-500" />
+    }
+    else if (Job?.State == JobState.Running.ToString())
+    {
+        <Icon Type="FontAwesomeIcons.CircleDot" Size="IconSize.Lg" CssClass="text-primary-500" />
+    }
+    else if (Job?.State == JobState.Success.ToString())
+    {
+        <Icon Type="FontAwesomeIcons.CircleCheck" Size="IconSize.Lg" CssClass="text-green-500" />
+    }
+    else if (Job?.State == JobState.Failed.ToString())
+    {
+        <Icon Type="FontAwesomeIcons.CircleXmark" Size="IconSize.Lg" CssClass="text-red-500" />
+    }
+    else
+    {
+        <Icon Type="FontAwesomeIcons.CircleDot" Size="IconSize.Lg" CssClass="text-gray-500" />
+    }
+
+    @if (ShowLabel)
+    {
+        <span class="ms-2">
+            @Job.State.ToString()
+        </span>
+    }
+</p>

@@ -1,0 +1,133 @@
+﻿@inherits BaseComponent
+
+<div class="bg-gray-100 text-neutral-900 h-[3.5rem] w-full overflow-hidden flex justify-between items-center
+            dark:bg-neutral-800 dark:text-gray-300 border-b border-neutral-900 dark:border-neutral-500">
+
+    <div class="flex items-center">
+        <a href="/" class="h-full flex items-center h-full ps-3">
+            <img class="w-[1.5rem]" src="img/logo.png" />
+            @if (!CollapsedSidePanel)
+            {
+                <div class="ms-3">
+                    <span class="text-lg font-accent">RE<span class="font-bold">STACK</span></span>
+                </div>
+            }
+
+            <div class="md:hidden ms-3">
+                <span class="text-lg font-accent">RE<span class="font-bold">STACK</span></span>
+            </div>
+        </a>
+
+        @if (BreadcrumbLinks.Any())
+        {
+            <div class="hidden md:inline ms-2 text-sm">
+                @for (var index = 0; index < BreadcrumbLinks.Count; index++)
+                {
+                    var link = BreadcrumbLinks.ElementAt(index);
+
+                    <a href="@link.Value" class="px-3 py-1 rounded hover:bg-gray-300 dark:hover:bg-neutral-600">@link.Key</a>
+
+                    @if (index != BreadcrumbLinks.Count - 1)
+                    {
+                        <span>/</span>
+                    }
+                }
+            </div>
+        }
+
+    </div>
+
+    <div class="pe-3">
+        <div class="p-2 cursor-pointer" @onclick="ToggleDarkMode">
+            @if (EnabledDarkMode)
+            {
+                <Icon Type="FontAwesomeIcons.Moon" Size="IconSize.Lg" />
+            }
+            else
+            {
+                <Icon Type="FontAwesomeIcons.Sun" Size="IconSize.Lg" />
+            }
+        </div>
+    </div>
+
+</div>
+
+<div class="flex flex-wrap md:flex-nowrap w-screen h-[calc(100vh-3.5rem)]">
+
+    <div class="relative w-full md:w-fit bg-gray-300 text-neutral-900 border-e border-grey-600 dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-100 @CssSidePanel">
+
+        <div class="text-sm flex md:block">
+
+            <div class="">
+                <NavLink href="stacks" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                    <Icon Type="FontAwesomeIcons.LayerGroup" Size="IconSize.Lg" />
+                    @if (!CollapsedSidePanel)
+                    {
+                        <span class="ms-3 min-w-32">Stacks</span>
+                    }
+                    else
+                    {
+                        <span>&#8203;</span>
+                    }
+
+                    <span class="ps-2 md:hidden">Stacks</span>
+
+                </NavLink>
+            </div>
+            <div>
+                <NavLink href="libraries" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                    <Icon Type="FontAwesomeIcons.BookOpen" Size="IconSize.Lg" />
+                    @if (!CollapsedSidePanel)
+                    {
+                        <span class="ms-3">Libraries</span>
+                    }
+                    else
+                    {
+                        <span>&#8203;</span>
+                    }
+
+                    <span class="ps-2 md:hidden">Libraries</span>
+                </NavLink>
+            </div>
+            <div>
+                <NavLink href="settings" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                    <Icon Type="FontAwesomeIcons.Gear" Size="IconSize.Lg" />
+                    @if (!CollapsedSidePanel)
+                    {
+                        <span class="ms-3">Settings</span>
+                    }
+                    else
+                    {
+                        <span>&#8203;</span>
+                    }
+
+                    <span class="ps-2 md:hidden">Settings</span>
+                </NavLink>
+            </div>
+
+        </div>
+
+        <div class="hidden absolute bottom-0 end-0 start-0 md:flex items-center mb-1 @(CollapsedSidePanel ? "justify-center" : "justify-end me-2")">
+            <button class="p-2" @onclick="ToggleCollapsedSidePanel">
+                @if (CollapsedSidePanel)
+                {
+                    <Icon Type="FontAwesomeIcons.AnglesRight" Size="IconSize.Sm" />
+                }
+                else
+                {
+                    <Icon Type="FontAwesomeIcons.AnglesLeft" Size="IconSize.Sm" />
+                }
+            </button>
+        </div>
+
+    </div>
+
+    <div id="@_contentId" class="relative overflow-auto h-[calc(100vh-3.5rem)] w-full p-3 md:p-6 bg-gray-200 dark:bg-neutral-800 dark:text-gray-100">
+
+        <Loader Visible="IsLoading" ShowOverlay="true" />
+
+        @ChildContent
+
+    </div>
+
+</div>

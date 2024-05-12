@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  restack-api:
+    image: elentriek/restack-api:latest
+    container_name: restack-api
+    restart: unless-stopped
+    hostname: restack-api
+    ports:
+      - 5000:80
+      - 5001:443
+    environment:
+      - ConnectionStrings__ReStack=Host=restack-db;Database=restack;Username=restack_user;Password=kkw9Ui3qTrURCFjKzFLw
+    #   - ApiSettings__ScriptStorage=/restack/data
+    depends_on:
+      - restack-db
+    volumes:
+      - restack-api-data:/restack/data
+
+  restack-web:
+    image: elentriek/restack-web:latest
+    container_name: restack-web
+    restart: unless-stopped
+    hostname: restack-web
+    # environment:
+    #   - WebSettings__ApiUrl=http://192.168.5.12:5000
+    ports:
+      - 5010:80
+      - 5011:443
+    depends_on:
+      - restack-api
+  
+  restack-db:
+    container_name: restack-db
+    image: postgres:16-alpine
+    hostname: restack-db
+    restart: always
+    ports:
+      - 9210:5432
+    volumes:
+      - restack-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=kkw9Ui3qTrURCFjKzFLw
+      - POSTGRES_USER=restack_user
+      - POSTGRES_DB=restack
+
+volumes:
+  restack-db-data:
+  restack-api-data:

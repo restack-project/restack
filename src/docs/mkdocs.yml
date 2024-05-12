@@ -1,0 +1,108 @@
+# Project information
+site_name: ReStack Docs
+site_url: https://squidfunk.github.io/mkdocs-material/
+site_author: Floris Heyvaert
+site_description: >-
+  Docs for the ReStack project. Run scripts anywhere and learn how to do it!
+
+
+# Repository
+repo_name: florisheyvaert/ReStack
+repo_url: https://github.com/florisheyvaert/ReStack
+
+
+# Copyright
+copyright: Copyright &copy; 2024 Floris Heyvaert
+
+
+# Settings
+docs_dir: docs
+site_dir: /site
+extra_css:
+  - stylesheets/extra.css
+
+
+# Theme
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  custom_dir: material/overrides
+  font:
+    text: Roboto
+  palette: 
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - announce.dismiss
+    # - content.action.edit
+    # - content.action.view
+    # - content.code.annotate
+    - content.code.copy
+    # - content.code.select
+    # - content.footnote.tooltips
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    # - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
+
+
+
+# Extra settings
+extra:
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+  # status:
+  #   new: Recently added
+  #   deprecated: Deprecated
+  # analytics:
+  #   provider: google
+  #   property: !ENV GOOGLE_ANALYTICS_KEY
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/florisheyvaert
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/u/florishey
+
+
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting started:
+    - Installation: getting-started.md
+    - Creating your stack: creating-your-site.md
+    - License: license.md
+  - Feedback:
+    - Log issue: feedback.md

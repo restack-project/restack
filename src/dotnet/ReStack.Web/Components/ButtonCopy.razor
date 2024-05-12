@@ -1,0 +1,10 @@
+﻿<button class="btn border-none focus:ring-0 active:ring-0 @CssClass" @onclick="Copy">
+    @if (_showCopied)
+    {
+        @:Copied
+    }
+    else
+    {
+        @ChildContent
+    }
+</button>
