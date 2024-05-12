@@ -27,6 +27,14 @@ html, body {
     @apply text-primary-300 underline hover:text-primary-400;
 }
 
+.btn-primary {
+    @apply w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold p-2 md:py-3 md:px-6 bg-primary-300 hover:bg-primary-200 dark:bg-primary-500 dark:hover:bg-primary-600;
+}
+
+.btn-secondary {
+    @apply rounded text-sm p-2 md:py-3 md:px-6 me-2 cursor-pointer text-center text-gray-100 bg-gray-500 hover:bg-gray-600 dark:bg-neutral-500 dark:hover:bg-neutral-600;
+}
+
 .text-2xs {
     font-size: 0.70rem;
     line-height: 0.95rem;

@@ -22,19 +22,19 @@
                     @if (Job.State == JobState.Queued.ToString() || Job.State == JobState.Running.ToString())
                     {
                         <a @onclick="Cancel" @onclick:preventDefault="true"
-                           class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                           class="btn-secondary">
                             Cancel
                         </a>
                     }
                     else
                     {
                         <a @onclick="Delete" @onclick:preventDefault="true"
-                           class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center shadow-md bg-gray-100 shadow-gray-700 hover:bg-gray-200 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
+                           class="btn-secondary">
                             Delete
                         </a>
                     }
                     <a @onclick="ExecuteNew" @onclick:preventDefault="true"
-                       class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-200 dark:bg-primary-500 dark:hover:bg-primary-600">
+                       class="btn-primary">
                         Execute new
                     </a>
                 </div>

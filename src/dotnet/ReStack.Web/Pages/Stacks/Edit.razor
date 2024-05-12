@@ -14,7 +14,10 @@
         {
             <div class="flex flex-wrap justify-between items-start mb-6">
                 <div class="flex items-center">
-                    <a href="@($"/stacks/{Stack.Id}")" class="pe-2 py-2">
+                    @{
+                        var url = Stack.Id == 0 ? "/stacks" : $"/stacks/{Stack.Id}";
+                    }
+                    <a href="@url" class="pe-2 py-2">
                         <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
                     </a>
                     @if (Stack.Id != 0)
@@ -23,16 +26,21 @@
                     }
                 </div>
                 <div class="w-full md:w-fit flex md:block mt-2">
-                    <button @onclick="async() => await Save(true)"
-                            class="rounded text-sm py-3 px-6 me-2 cursor-pointer text-center text-gray-100 bg-gray-500 hover:bg-gray-600 dark:bg-neutral-500 dark:hover:bg-neutral-600 ">
-                        Save
-                    </button>
                     @if (Stack.Id != 0)
                     {
                         <button @onclick="SaveAndExecute"
-                                class="w-full cursor-pointer md:w-fit rounded text-sm text-center text-gray-100 font-bold py-3 px-6 bg-primary-300 hover:bg-primary-200 dark:bg-primary-500 dark:hover:bg-primary-600">
-                            Save & execute
+                                class="btn-secondary">
+                            Execute
                         </button>
+                    }
+
+                    <button @onclick="async() => await Save(true)"
+                            class="btn-primary">
+                        Save
+                    </button>
+
+                    @if (Stack.Id != 0)
+                    {
                         <button @onclick="ToggleEditor"
                                 class="rounded text-sm py-3 px-6 hover:text-primary-500">
                             @if (ShowEditor)
