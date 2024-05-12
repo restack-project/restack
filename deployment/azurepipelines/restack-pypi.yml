@@ -6,7 +6,7 @@
 trigger:
   branches:
     include:
-      - 'release'
+      - main
   paths:
     include:
       - 'src/python/pyrestack/__init__.py'
