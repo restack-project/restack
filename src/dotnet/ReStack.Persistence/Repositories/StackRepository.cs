@@ -104,14 +104,13 @@ public class StackRepository(
     public async Task<Stack> CalculateStats(int stackId, CancellationToken cancellationToken = default)
     {
         var jobs = await _context.Job.Where(x => x.StackId == stackId).ToListAsync(cancellationToken);
-
         var totalJobs = jobs.Count;
         var totalSuccessJobs = jobs.Count(x => x.State == JobState.Success);
         var totalRuntime = jobs.Where(x => x.Ended.HasValue).Sum(x => (x.Ended.Value - x.Started).TotalSeconds);
-
         var stack = await _context.Stack.FirstOrDefaultAsync(x => x.Id == stackId, cancellationToken);
-        stack.SuccesPercentage = Math.Round((decimal)totalSuccessJobs / totalJobs * 100, 2);
-        stack.AverageRuntime = Math.Round((decimal)totalRuntime / totalJobs, 2);
+
+        stack.SuccesPercentage = totalJobs != 0 ? Math.Round((decimal)totalSuccessJobs / totalJobs * 100, 2) : 0;
+        stack.AverageRuntime = totalJobs != 0 ? Math.Round((decimal)totalRuntime / totalJobs, 2) : 0;
 
         await _context.SaveChangesAsync(cancellationToken);
 
