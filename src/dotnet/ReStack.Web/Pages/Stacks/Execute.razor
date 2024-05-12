@@ -77,14 +77,14 @@
                         @lock (_logLock)
                         {
                             <Virtualize Items="Job.Logs" Context="log">
-                                <p class="flex flex-wrap p-2 hover:bg-gray-400 dark:hover:bg-neutral-600">
-                                    <div class="w-[12rem] text-sm">
+                                <p class="flex flex-wrap p-2 mb-4 hover:bg-gray-400 dark:hover:bg-neutral-600">
+                                    <div class="min-w-32 text-xs">
                                         <span class="">@log.Timestamp</span>
                                     </div>
-                                    <div class="w-[5rem] text-sm">
+                                    <div class="text-xs">
                                         <span class="@(log.Error ? "text-red-500" : "text-primary-300")">[@(log.Error ? "ERROR" : "INFO")]</span>
                                     </div>
-                                    <div class="w-full mt-2 ps-3 md:ps-0 md:mt-0 md:w-[calc(100%-17rem)] break-words">
+                                    <div class="w-full mt-2 break-words">
                                         <span class="fs-9">@log.Message</span>
                                     </div>
                                 </p>

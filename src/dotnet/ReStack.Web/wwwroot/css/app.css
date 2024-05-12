@@ -869,6 +869,10 @@ select {
   margin-top: 2rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -979,6 +983,14 @@ select {
 
 .min-w-32 {
   min-width: 8rem;
+}
+
+.min-w-36 {
+  min-width: 9rem;
+}
+
+.min-w-28 {
+  min-width: 7rem;
 }
 
 .max-w-lg {
