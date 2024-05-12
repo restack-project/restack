@@ -20,7 +20,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'elentriek/restack-api'
+    repository: 'restackproject/restack-api'
     command: 'buildAndPush'
     dockerfile: '**/ReStack.Api/Dockerfile_ARM64'
     buildContext: '$(Build.SourcesDirectory)/src/dotnet'
