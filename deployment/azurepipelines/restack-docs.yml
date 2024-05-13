@@ -33,5 +33,5 @@ steps:
     git checkout main --
     git add --all
     git commit -m "Generating docs for $(Build.BuildNumber)"
-    git push origin release
+    git push origin main
   displayName: Git Push
