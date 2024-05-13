@@ -47,7 +47,11 @@ public enum FontAwesomeIcons
     [Description("fa-solid fa-file")]
     File,
     [Description("fa-solid fa-code")]
-    Code
+    Code,
+    [Description("fa-solid fa-caret-up")]
+    CaretUp,
+    [Description("fa-solid fa-caret-down")]
+    CaretDown,
 }
 
 public enum IconSize

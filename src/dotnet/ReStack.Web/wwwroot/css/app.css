@@ -869,6 +869,14 @@ select {
   margin-top: 2rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.me-5 {
+  margin-inline-end: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -1023,6 +1031,10 @@ select {
 
 .rounded {
   border-radius: 0.25rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .border-b {

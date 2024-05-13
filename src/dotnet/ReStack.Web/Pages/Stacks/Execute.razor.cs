@@ -3,6 +3,7 @@ using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Stacks;
 
@@ -20,6 +21,7 @@ public partial class Execute
     public int? JobId { get; set; }
     public StackModel Stack { get; set; }
     public JobModel Job { get; set; }
+    public Page Page { get; set; }
 
     public override async Task OnLogAdded(LogModel log)
     {

@@ -9,7 +9,7 @@ window.GetCurrentUrl = function() {
 window.ScrollToBottom = function(id) {
     const element = document.getElementById(id);
    
-    element.scrollTo(0, element.scrollHeight);
+    element.scrollTo(0, element.scrollHeight, );
 }
 
 window.ScrollToTop = function (id) {

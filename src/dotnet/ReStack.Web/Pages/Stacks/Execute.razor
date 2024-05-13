@@ -2,7 +2,7 @@
 
 @inherits SubscribeComponent
 
-<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+<Page @ref="Page" BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
     @if (LoadError)
     {
         <p>No stack found, go back to the <a href="/stacks" class="link">overview</a></p>
@@ -63,6 +63,12 @@
                         <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Logs</button>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                <button @onclick="Page.ScrollToTop" class="rounded-full p-4 bg-gray-400 dark:bg-neutral-800 fixed bottom-0 end-0 me-5 mb-3 z-50 text-sm">
+                    <Icon Type="FontAwesomeIcons.CaretUp" Size="IconSize.Lg" />
+                </button>
             </div>
 
             <Panel CssClass="">
