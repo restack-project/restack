@@ -13,8 +13,8 @@ public class StackModel : IEquatable<StackModel>
     public TimeSpan AverageRuntime { get; set; }
     public decimal SuccesPercentage { get; set; }
 
-    public List<JobModel> Jobs { get; set; } = new();
-    public List<ComponentModel> Components { get; set; } = new();
+    public List<JobModel> Jobs { get; set; } = [];
+    public List<ComponentModel> Components { get; set; } = [];
     public JobModel LastJob { get => Jobs.OrderByDescending(x => x.Sequence).FirstOrDefault(); }
 
     // todo not the correct place because it's a 3th library
@@ -31,8 +31,6 @@ public class StackModel : IEquatable<StackModel>
             icon = "img/languages/shell.svg";
         else if (type == ProgrammingLanguage.PowerShell.ToString())
             icon = "img/languages/powershell.svg";
-        else if (type == ProgrammingLanguage.Python.ToString())
-            icon = "img/languages/python.svg";
         else if (type == ProgrammingLanguage.Bat.ToString())
             icon = "img/languages/bat.svg";
 

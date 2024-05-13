@@ -32,7 +32,6 @@ public class Stack
         {
             ProgrammingLanguage.Bat => ".bat",
             ProgrammingLanguage.Shell => ".sh",
-            ProgrammingLanguage.Python => ".py",
             ProgrammingLanguage.PowerShell => ".ps1",
             _ => throw new ArgumentException($"{Type} has no extension configured, please add one."),
         };

@@ -1,16 +1,6 @@
-﻿using Microsoft.Extensions.Options;
-using ReStack.Application.StackHandling.Validators;
-using ReStack.Domain.Settings;
-using ReStack.Domain.Entities;
+﻿using ReStack.Application.StackHandling.Validators;
 using ReStack.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ReStack.Common.Interfaces;
-using System.Collections;
 
 namespace ReStack.Application.StackHandling.Languages
 {

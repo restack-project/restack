@@ -11,7 +11,6 @@ public partial class Page
     private readonly string _collapsedSidePanelKey = "SidePanel_Collapsed";
 
     [Inject] public ILocalStorageService LocalStorage { get; set; }
-    [Inject] public IJSRuntime JS { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public new Dictionary<string, string> BreadcrumbLinks { get; set; } = [];
