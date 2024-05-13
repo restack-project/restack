@@ -26,4 +26,4 @@ steps:
     buildContext: '$(Build.SourcesDirectory)/src/dotnet'
     tags: |
       arm-latest
-      arm-$(Build.BuildId)
+      arm-$(Build.BuildNumber)
