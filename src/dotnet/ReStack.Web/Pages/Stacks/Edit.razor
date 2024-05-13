@@ -25,11 +25,11 @@
                         <h1 class="text-xl md:text-3xl ms-2">@Stack.Name</h1>
                     }
                 </div>
-                <div class="w-full md:w-fit flex md:block mt-2">
+                <div class="w-full flex md:w-fit flex mt-2">
                     @if (Stack.Id != 0)
                     {
                         <button @onclick="SaveAndExecute"
-                                class="btn-secondary">
+                                class="btn-secondary me-2 md:w-fit">
                             Execute
                         </button>
                     }

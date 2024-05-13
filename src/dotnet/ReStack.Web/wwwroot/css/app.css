@@ -1145,6 +1145,11 @@ select {
   padding-right: 0.5rem;
 }
 
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1370,6 +1375,8 @@ html, body {
   --tw-bg-opacity: 1;
   background-color: rgb(51 134 138 / var(--tw-bg-opacity));
   padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1395,8 +1402,6 @@ html, body {
 
 @media (min-width: 768px) {
   .btn-primary {
-    width: -moz-fit-content;
-    width: fit-content;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1.5rem;
@@ -1405,12 +1410,13 @@ html, body {
 }
 
 .btn-secondary {
-  margin-inline-end: 0.5rem;
   cursor: pointer;
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
   padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1447,10 +1453,9 @@ html, body {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -1473,8 +1478,10 @@ html, body {
 
 @media (min-width: 768px) {
   .btn-delete {
-    width: -moz-fit-content;
-    width: fit-content;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
