@@ -1,18 +1,18 @@
 # Project information
 site_name: ReStack Docs
-site_url: https://squidfunk.github.io/mkdocs-material/
+site_url: https://restack-project.github.io/restack/
 site_author: Floris Heyvaert
 site_description: >-
   Docs for the ReStack project. Run scripts anywhere and learn how to do it!
 
 
 # Repository
-repo_name: florisheyvaert/ReStack
-repo_url: https://github.com/florisheyvaert/ReStack
+repo_name: restackproject/restack
+repo_url: https://github.com/restack-project/restack
 
 
 # Copyright
-copyright: Copyright &copy; 2024 Floris Heyvaert
+copyright: Copyright &copy; 2024 ReStack Project
 
 
 # Settings
@@ -91,9 +91,9 @@ extra:
   #   property: !ENV GOOGLE_ANALYTICS_KEY
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/florisheyvaert
+      link: https://github.com/restack-project
     - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/u/florishey
+      link: https://hub.docker.com/u/restackproject
 
 
 
@@ -101,8 +101,12 @@ extra:
 nav:
   - Home: index.md
   - Getting started:
-    - Installation: getting-started.md
-    - Creating your stack: creating-your-site.md
-    - License: license.md
+    - Installation: guides/installation.md
+    - Create a stack: guides/create-stack.md
+    - Create SSH key: guides/create-ssh-key.md
+  # - Guides:
+  #   - Create a stack: create-stack.md
+  #   - Create a library: create-library.md
   - Feedback:
-    - Log issue: feedback.md
+    - Issue/Feature: feedback.md
+    - License: license.md
