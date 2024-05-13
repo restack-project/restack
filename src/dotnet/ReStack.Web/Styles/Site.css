@@ -35,6 +35,10 @@ html, body {
     @apply rounded text-sm p-2 md:py-3 md:px-6 me-2 cursor-pointer text-center text-gray-100 bg-gray-500 hover:bg-gray-600 dark:bg-neutral-500 dark:hover:bg-neutral-600;
 }
 
+.btn-delete {
+    @apply rounded font-bold w-full md:w-fit py-2 px-6 text-red-500 bg-gray-400 hover:bg-gray-500 dark:bg-neutral-800 dark:hover:bg-neutral-600;
+}
+
 .text-2xs {
     font-size: 0.70rem;
     line-height: 0.95rem;

@@ -44,7 +44,7 @@ else
             @foreach (var action in Actions)
             {
                 <div class="w-full p-2">
-                    <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="async() => await action.Value">@action.Key</button>
+                    <button class="btn-primary w-full" @onclick="async() => await action.Value">@action.Key</button>
                 </div>
             }
         }
@@ -58,18 +58,18 @@ else
             }
 
             <div class="w-full">
-                <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="() => NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true)">Reload the page</button>
+                <button class="w-full btn-secondary" @onclick="() => NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true)">Reload the page</button>
             </div>
 
             @if (Exception is object)
             {
                 <div class="w-full">
-                    <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="ToggleTechnicalError">@(ShowTechincalError ? "Hide" : "Show") technical info</button>
+                    <button class="w-full btn-secondary" @onclick="ToggleTechnicalError">@(ShowTechincalError ? "Hide" : "Show") technical info</button>
                 </div>
             }
 
             <div class="w-full">
-                <button class="w-full cursor-pointer bg-gray-300 rounded text-sm p-3 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600" @onclick="async() => await BlazoredModal.CancelAsync()">Close</button>
+                <button class="w-full btn-secondary" @onclick="async() => await BlazoredModal.CancelAsync()">Close</button>
             </div>
         </div>
     </div>
