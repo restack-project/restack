@@ -1,5 +1,9 @@
 # ReStack
 
+<p align="center">
+    <img src="assets/logo.png" alt="ReStack Logo" width="72px">
+</p>
+
 Welcome to ReStack - a self-hosted, open-source project designed to run scripts anywhere!
 
 ## About ReStack
