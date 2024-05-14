@@ -16,3 +16,12 @@
 .md-header__topic {
   font-family: 'Tektur';
 }
+
+.md-nav__item a,
+.md-tabs__list a {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: underline;
+}

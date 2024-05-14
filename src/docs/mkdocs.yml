@@ -99,7 +99,7 @@ extra:
 
 # Page tree
 nav:
-  - Home: index.md
+  - Intro: index.md
   - Getting started:
     - Installation: guides/installation.md
     - Create a stack: guides/create-stack.md
