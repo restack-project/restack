@@ -30,8 +30,8 @@ steps:
     git config user.name "docs-bot@restack-project.com"
     git config user.email "Example@example.com"
 
-    git checkout release --
+    git checkout main --
     git add --all
     git commit -m "Generating docs for $(Build.BuildNumber)"
-    git push origin release
+    git push origin main
   displayName: Git Push

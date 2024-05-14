@@ -12,22 +12,28 @@
         <meta name="author" content="Floris Heyvaert">
       
       
+        <link rel="canonical" href="https://restack-project.github.io/restack/guides/create-stack/">
       
       
+        <link rel="prev" href="../installation/">
       
-      <link rel="icon" href="/restack/assets/favicon.png">
+      
+        <link rel="next" href="../create-ssh-key/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
     
     
       
-        <title>ReStack Docs</title>
+        <title>Create a stack - ReStack Docs</title>
       
     
     
-      <link rel="stylesheet" href="/restack/assets/stylesheets/main.732c4fb1.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.732c4fb1.min.css">
       
         
-        <link rel="stylesheet" href="/restack/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="/restack/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/restack/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -73,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#prerequisites" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -83,9 +94,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/restack/." title="ReStack Docs" class="md-header__button md-logo" aria-label="ReStack Docs" data-md-component="logo">
+    <a href="../.." title="ReStack Docs" class="md-header__button md-logo" aria-label="ReStack Docs" data-md-component="logo">
       
-  <img src="/restack/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Create a stack
             
           </span>
         </div>
@@ -216,7 +227,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/restack/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -231,11 +242,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/restack/guides/installation/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../installation/" class="md-tabs__link">
           
   
     
@@ -255,7 +268,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/restack/feedback/" class="md-tabs__link">
+        <a href="../../feedback/" class="md-tabs__link">
           
   
     
@@ -290,9 +303,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/restack/." title="ReStack Docs" class="md-nav__button md-logo" aria-label="ReStack Docs" data-md-component="logo">
+    <a href="../.." title="ReStack Docs" class="md-nav__button md-logo" aria-label="ReStack Docs" data-md-component="logo">
       
-  <img src="/restack/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     ReStack Docs
@@ -319,7 +332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/restack/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -336,8 +349,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -350,19 +365,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -373,7 +391,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting started
@@ -387,7 +405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/restack/guides/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -405,10 +423,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/restack/guides/create-stack/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Create a stack
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -417,6 +453,96 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-accessing-restack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Accessing ReStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-creating-a-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Creating a stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-adding-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Adding the code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-executing-a-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Executing a stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-stack-for-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Stack (for Testing)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-bat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows (bat)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux (shell)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -429,7 +555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/restack/guides/create-ssh-key/" class="md-nav__link">
+      <a href="../create-ssh-key/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -503,7 +629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/restack/feedback/" class="md-nav__link">
+      <a href="../../feedback/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -524,7 +650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/restack/license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -563,6 +689,86 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-accessing-restack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Accessing ReStack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-creating-a-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Creating a stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-adding-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Adding the code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-executing-a-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Executing a stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-stack-for-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Stack (for Testing)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-bat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows (bat)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux (shell)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -573,8 +779,96 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+  
+
+
+  <h1>Create a stack</h1>
+
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before you proceed, make sure you have completed the installation of ReStack as outlined in the <a href="guides/installation">Installation Guide</a>.</p>
+<h3 id="step-1-accessing-restack">Step 1: Accessing ReStack</h3>
+<ol>
+<li>Open your web browser and navigate to the ReStack application.</li>
+</ol>
+<h3 id="step-2-creating-a-stack">Step 2: Creating a stack</h3>
+<ol>
+<li>Click on the "Add Stack" button.</li>
+<li>Fill in the required details for your stack:<ul>
+<li><strong>Name</strong>: Provide a name for your stack (e.g., "Example Stack").</li>
+<li><strong>Run as</strong>: Select the type of stack you want to create.</li>
+<li><strong>Fail on std error output</strong>: Check if the stack should fail, the moment input is received on the std error output.</li>
+<li><strong>Libraries</strong>: Optionally, select the libraries you want to use.</li>
+</ul>
+</li>
+<li>Click on the "Save" button to create your stack.</li>
+</ol>
+<h3 id="step-3-adding-the-code">Step 3: Adding the code</h3>
+<ol>
+<li>After creating the stack, you'll be redirected to the stack code editor.</li>
+<li>Here you can add the code you want to execute.</li>
+<li>Click on the "Save" button to save the code.</li>
+</ol>
+<h3 id="step-4-executing-a-stack">Step 4: Executing a stack</h3>
+<p>Just click the 'Execute' button and view your output!</p>
+<h3 id="example-stack-for-testing">Example Stack (for Testing)</h3>
+<p>Here's an example stack configuration to get you started:</p>
+<h3 id="windows-bat">Windows (bat)</h3>
+<p>This script will output 10 lines with random text.</p>
+<pre><code class="language-bat">@echo off
+setlocal enabledelayedexpansion
+
+set count=0
+:loop
+set /a count+=1
+if !count! gtr 10 goto :eof
+
+set &quot;chars=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;
+set &quot;length=100&quot;
+set &quot;randomString=&quot;
+
+for /l %%i in (1,1,%length%) do (
+    set /a &quot;rand=!random! %% 62&quot;
+    for %%a in (!rand!) do (
+        set &quot;randomString=!randomString!!chars:~%%a,1!&quot;
+    )
+)
+
+echo %randomString%
+
+goto :loop
+</code></pre>
+<h3 id="linux-shell">Linux (shell)</h3>
+<p>This script will make an SSH connection to the specified IP address. On the server, it will execute lxc-attach command to update a running container.</p>
+<pre><code class="language-shell">VM_ID=100
+SSH_USER=root
+SSH_HOST_IP=192.168.1.1
+SSH_KEY=/restack/data/keys/id_rsa
+DOCKER_COMPOSE_FILE=~/vcode/workspace/stream/docker-compose.yml
+
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- apt-get update&quot;
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- apt-get upgrade -y&quot;
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- apt-get dist-upgrade -y&quot;
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- docker compose -f ${DOCKER_COMPOSE_FILE} pull&quot;
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- docker compose -f ${DOCKER_COMPOSE_FILE} up -d&quot;
+ssh ${SSH_USER}@${SSH_HOST_IP} -i ${SSH_KEY} -o StrictHostKeyChecking=no &quot;lxc-attach ${VM_ID} -- docker ps&quot;
+</code></pre>
+<p>Feel free to customize the example stack configuration according to your specific needs and requirements.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -592,6 +886,44 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../installation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Installation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../create-ssh-key/" class="md-footer__link md-footer__link--next" aria-label="Next: Create SSH key">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Create SSH key
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -703,10 +1035,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": "/restack/", "features": ["announce.dismiss", "content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "/restack/assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/restack/assets/javascripts/bundle.5cfa9459.min.js"></script>
+      <script src="../../assets/javascripts/bundle.5cfa9459.min.js"></script>
       
     
   </body>
