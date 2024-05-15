@@ -8,10 +8,8 @@ trigger:
     include:
     - main
   paths:
-    exclude:
-    - deployment/azurepipelines/*
-    - docs/*
-    - src/docs/*
+    include:
+    - src/dotnet/*
 
 pool:
   vmImage: ubuntu-latest

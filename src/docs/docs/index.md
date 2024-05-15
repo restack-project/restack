@@ -25,6 +25,23 @@ To get started with ReStack, follow these steps:
 2. **Script Creation**: Create custom scripts tailored to your specific requirements.
 3. **Execution**: Execute scripts using ReStack's intuitive interface or API endpoints.
 
+## Screenshots
+
+<p align="center">
+    <a href="assets/screenshot_index.png">
+        <img src="assets/screenshot_index.png" alt="Screenshot of the home page" width="712px">
+    </a>
+    <a href="assets/screenshot_stack.png">
+        <img src="assets/screenshot_stack.png" alt="Screenshot of a stack detail" width="712px">
+    </a>
+    <a href="assets/screenshot_code_editor.png">
+        <img src="assets/screenshot_code_editor.png" alt="Screenshot of the code editor of the stack" width="712px">
+    </a>
+    <a href="assets/screenshot_job.png">
+        <img src="assets/screenshot_job.png" alt="Screenshot of an execution of a stack" width="712px">
+    </a>
+</p>
+
 ## Contributing
 
 ReStack is an open-source project, and we welcome contributions from the community. If you're interested in contributing, visit the [GitHub repository](https://github.com/restack-project) to view the source code, report issues, and submit pull requests.
