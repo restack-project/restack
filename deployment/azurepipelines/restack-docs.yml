@@ -9,7 +9,7 @@ trigger:
     - main
   paths:
     include:
-    - src/docs/*
+    - docs/*
 
 pool:
   vmImage: ubuntu-latest
@@ -22,5 +22,5 @@ steps:
 - script: |
     python -m pip install --upgrade pip
     pip install mkdocs-material 
-    mkdocs gh-deploy --config-file $(Build.SourcesDirectory)/src/docs/mkdocs.yml --site-dir $(Build.SourcesDirectory)/docs
+    mkdocs gh-deploy --config-file $(Build.SourcesDirectory)/docs/mkdocs.yml
   displayName: 'MkDocs Build'
