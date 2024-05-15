@@ -22,16 +22,5 @@ steps:
 - script: |
     python -m pip install --upgrade pip
     pip install mkdocs-material 
-    
-    mkdocs build --config-file $(Build.SourcesDirectory)/src/docs/mkdocs.yml --site-dir $(Build.SourcesDirectory)/docs
+    mkdocs gh-deploy --config-file $(Build.SourcesDirectory)/src/docs/mkdocs.yml --site-dir $(Build.SourcesDirectory)/docs
   displayName: 'MkDocs Build'
-
-- bash: |
-    git config user.name "docs-bot@restack-project.com"
-    git config user.email "Example@example.com"
-
-    git checkout main --
-    git add --all
-    git commit -m "Generating docs for $(Build.BuildNumber)"
-    git push origin main
-  displayName: Git Push
