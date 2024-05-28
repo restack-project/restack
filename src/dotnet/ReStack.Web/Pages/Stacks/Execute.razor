@@ -88,9 +88,12 @@
                 }
             </div>
 
-            <div>
-                <button @onclick="Page.ScrollToTop" class="rounded-full p-4 bg-gray-400 dark:bg-neutral-800 fixed bottom-0 end-0 me-5 mb-3 z-50 text-sm">
+            <div class="fixed bottom-0 end-0 me-5 mb-3 z-50 text-sm flex flex-col gap-2">
+                <button @onclick="Page.ScrollToTop" class="rounded-full p-4 bg-gray-400 dark:bg-neutral-800">
                     <Icon Type="FontAwesomeIcons.CaretUp" Size="IconSize.Lg" />
+                </button>
+                <button @onclick="Page.ScrollToBottom" class="rounded-full p-4 bg-gray-400 dark:bg-neutral-800">
+                    <Icon Type="FontAwesomeIcons.CaretDown" Size="IconSize.Lg" />
                 </button>
             </div>
 
