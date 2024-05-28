@@ -22,6 +22,9 @@ public partial class Execute
     public StackModel Stack { get; set; }
     public JobModel Job { get; set; }
     public Page Page { get; set; }
+    public ICollection<LogModel> DisplayLogs { get; set; } = [];
+    public string SearchText { get; set; }
+    public bool SearchError { get; set; }
 
     public override async Task OnLogAdded(LogModel log)
     {
@@ -35,6 +38,7 @@ public partial class Execute
                 }
 
                 Job.Logs = [.. Job.Logs.OrderByDescending(x => x.Timestamp)];
+                DisplayLogs = Job.Logs;
             }
 
             await StateHasChangedAsync();
@@ -69,6 +73,8 @@ public partial class Execute
                 {
                     BreadcrumbLinks.Add(Stack.Name, $"stacks/{StackId}");
                     BreadcrumbLinks.Add($"#{Job.Sequence}", $"execute/{JobId}");
+
+                    await Search();
                 }
                 else
                 {
@@ -152,5 +158,37 @@ public partial class Execute
                 await SetLoading(false);
             }
         }
+    }
+
+    private async Task Search()
+    {
+        if (string.IsNullOrWhiteSpace(SearchText) && !SearchError)
+        {
+            DisplayLogs = Job.Logs;
+        }
+        else
+        {
+            var logs = Job.Logs;
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                logs = logs.Where(x => x.Message.ToLower().Contains(SearchText.ToLower())).ToList();               
+            }
+
+            if (SearchError)
+            {
+                logs = logs.Where(x => x.Error).ToList();
+            }
+
+            DisplayLogs = [.. logs];
+        }
+    }
+
+    private async Task ClearSearch()
+    {
+        SearchError = false;
+        SearchText = string.Empty;
+
+        await Search();
     }
 }

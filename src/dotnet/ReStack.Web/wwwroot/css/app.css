@@ -841,8 +841,16 @@ select {
   margin-inline-end: 0.5rem;
 }
 
+.me-3 {
+  margin-inline-end: 0.75rem;
+}
+
 .me-4 {
   margin-inline-end: 1rem;
+}
+
+.me-5 {
+  margin-inline-end: 1.25rem;
 }
 
 .ms-2 {
@@ -869,12 +877,8 @@ select {
   margin-top: 2rem;
 }
 
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-
-.me-5 {
-  margin-inline-end: 1.25rem;
+.ms-1 {
+  margin-inline-start: 0.25rem;
 }
 
 .block {
@@ -1728,6 +1732,10 @@ h1:focus {
 }
 
 @media (min-width: 768px) {
+  .md\:m-2 {
+    margin: 0.5rem;
+  }
+
   .md\:m-3 {
     margin: 0.75rem;
   }
