@@ -182,6 +182,8 @@ public partial class Execute
 
             DisplayLogs = [.. logs];
         }
+
+        await Task.CompletedTask;
     }
 
     private async Task ClearSearch()

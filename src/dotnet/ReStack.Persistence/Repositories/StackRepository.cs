@@ -45,6 +45,7 @@ public class StackRepository(
             .Include(x => x.Components)
             .ThenInclude(x => x.Component)
             .ThenInclude(x => x.ComponentLibrary)
+            .Include(x => x.IgnoreRules)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         var jobs = await _context.Job
@@ -70,6 +71,7 @@ public class StackRepository(
         var entities = await _context.Stack
             .Include(x => x.Components)
             .ThenInclude(x => x.Component)
+            .Include(x => x.IgnoreRules)
             .ToListAsync(token);
 
         foreach (var entity in entities)
@@ -95,6 +97,7 @@ public class StackRepository(
         updatedEntity.Type = entity.Type;
         updatedEntity.Components = entity.Components;
         updatedEntity.FailOnStdError = entity.FailOnStdError;
+        updatedEntity.IgnoreRules = entity.IgnoreRules;
 
         await _context.SaveChangesAsync();
 

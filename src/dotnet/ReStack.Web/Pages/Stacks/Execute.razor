@@ -19,6 +19,10 @@
                     <h1 class="text-xl md:text-3xl ms-2">Job: #@Job.Sequence - <span class="text-lg">@Stack.Name</span></h1>
                 </div>
                 <div class="w-full md:w-fit flex md:block mt-2">
+                    <a href="/stacks/@Stack.Id/edit"
+                       class="btn-secondary me-2 md:w-fit">
+                        Edit
+                    </a>
                     @if (Job.State == JobState.Queued.ToString() || Job.State == JobState.Running.ToString())
                     {
                         <a @onclick="Cancel" @onclick:preventDefault="true"

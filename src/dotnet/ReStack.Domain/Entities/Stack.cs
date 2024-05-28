@@ -13,8 +13,9 @@ public class Stack
     public decimal AverageRuntime { get; set; }
     public decimal SuccesPercentage { get; set; }
 
-    public List<Job> Jobs { get; set; }
-    public List<StackComponent> Components { get; set; } = [];
+    public ICollection<Job> Jobs { get; set; }
+    public ICollection<StackComponent> Components { get; set; } = [];
+    public ICollection<StackIgnoreRule> IgnoreRules { get; set; } = [];
 
     // TODO place this in a service or something else
     public string GetLocation(ApiSettings settings) => Path.Combine(settings.StackStorage, Id.ToString(), DetermineFileName());

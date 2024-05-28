@@ -223,6 +223,24 @@ public partial class Edit
         }
     }
 
+    private async Task AddIgnoreRule()
+    {
+        Stack.IgnoreRules.Add(new()
+        {
+            StackId = Stack.Id,
+            Enabled = true,
+        });
+
+        await Task.CompletedTask;
+    }
+
+    private async Task RemoveIgnoreRule(StackIgnoreRuleModel ignoreRule)
+    {
+        Stack.IgnoreRules.Remove(ignoreRule);
+
+        await Task.CompletedTask;
+    }
+
     private async Task ToggleEditor()
     {
         ShowEditor = !ShowEditor;

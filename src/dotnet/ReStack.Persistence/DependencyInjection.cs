@@ -8,7 +8,7 @@ using ReStack.Persistence.Repositories;
 
 namespace ReStack.Persistence;
 
-// dotnet ef --startup-project ReStack.Api/ migrations add 20240429_1 --project ReStack.Persistence.PostgresMigrations
+// dotnet ef --startup-project ReStack.Api/ migrations add 20240528_1 --project ReStack.Persistence.PostgresMigrations
 // dotnet ef --startup-project ../ReStack.Api/ database update
 
 public static class DependencyInjection

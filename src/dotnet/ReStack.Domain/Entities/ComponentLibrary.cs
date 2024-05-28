@@ -15,7 +15,7 @@ public class ComponentLibrary
     public string LastHashCommit { get; set; }
     public ProgrammingLanguage Type { get; set; }
 
-    public List<Component> Components { get; set; } = [];
+    public ICollection<Component> Components { get; set; } = [];
 
     public string GetLocation(ApiSettings settings) => Path.Combine(settings.ComponentStorage, Id.ToString()); 
 }

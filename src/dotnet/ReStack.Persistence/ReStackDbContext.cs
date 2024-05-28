@@ -4,7 +4,9 @@ using ReStack.Domain.Entities;
 
 namespace ReStack.Persistence;
 
-public class ReStackDbContext : DbContext, IReStackDbContext
+public class ReStackDbContext(
+    DbContextOptions<ReStackDbContext> options
+) : DbContext(options), IReStackDbContext
 {
     public DbSet<Stack> Stack { get; set; }
     public DbSet<Job> Job { get; set; }
@@ -13,11 +15,7 @@ public class ReStackDbContext : DbContext, IReStackDbContext
     public DbSet<ComponentParameter> ComponentParameter { get; set; }
     public DbSet<Component> Component { get; set; }
     public DbSet<StackComponent> StackComponent { get; set; }
-
-    public ReStackDbContext(DbContextOptions<ReStackDbContext> options) : base(options)
-    {
-        
-    }
+    public DbSet<StackIgnoreRule> StackIgnoreRule { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,6 +25,7 @@ public class ReStackDbContext : DbContext, IReStackDbContext
         modelBuilder.Entity<Component>().HasMany(x => x.Parameters).WithOne(x => x.Component).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Component>().HasMany(x => x.Stacks).WithOne(x => x.Component).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Stack>().HasMany(x => x.Components).WithOne(x => x.Stack).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Stack>().HasMany(x => x.IgnoreRules).WithOne(x => x.Stack).OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
     }

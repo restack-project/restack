@@ -13,8 +13,9 @@ public class StackModel : IEquatable<StackModel>
     public TimeSpan AverageRuntime { get; set; }
     public decimal SuccesPercentage { get; set; }
 
-    public List<JobModel> Jobs { get; set; } = [];
-    public List<ComponentModel> Components { get; set; } = [];
+    public ICollection<JobModel> Jobs { get; set; } = [];
+    public ICollection<ComponentModel> Components { get; set; } = [];
+    public ICollection<StackIgnoreRuleModel> IgnoreRules { get; set; } = [];
     public JobModel LastJob { get => Jobs.OrderByDescending(x => x.Sequence).FirstOrDefault(); }
 
     // todo not the correct place because it's a 3th library

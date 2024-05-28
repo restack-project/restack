@@ -14,5 +14,5 @@ public class Job
     public int StackId { get; set; }
     public Stack Stack { get; set; }
 
-    public List<Log> Logs { get; set; } = [];
+    public ICollection<Log> Logs { get; set; } = [];
 }
