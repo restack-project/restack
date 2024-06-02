@@ -29,6 +29,7 @@ public partial class Edit
     public Blace.Components.Editor<StackFile> Editor { get; set; }
     public EditContext EditContext { get; set; }
     public List<string> Validations { get; private set; } = [];
+    public EditPanel SelectedPanel { get; set; } = EditPanel.Settings;
 
     protected override async Task OnInitializedAsync()
     {
@@ -223,6 +224,13 @@ public partial class Edit
         }
     }
 
+    private async Task SelectEditPanel(EditPanel panel)
+    {
+        SelectedPanel = panel;
+
+        await StateHasChangedAsync();
+    }
+
     private async Task AddIgnoreRule()
     {
         Stack.IgnoreRules.Add(new()
@@ -263,5 +271,10 @@ public partial class Edit
             _messageStore.Add(() => Stack.Type, "Type cannot be empty");
 
         return EditContext.Validate();
+    }
+
+    public enum EditPanel
+    {
+        Settings, IgnoreRules, Libraries
     }
 }

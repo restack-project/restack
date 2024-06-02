@@ -6,4 +6,5 @@ public partial class Panel
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string CssClass { get; set; }
+    [Parameter] public bool Visible { get; set; } = true;
 }

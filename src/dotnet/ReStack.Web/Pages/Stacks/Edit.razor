@@ -69,22 +69,35 @@
                 <div class="flex items-center justify-between text-sm mt-8 mb-4">
                     <div class="flex items-center">
                         <div class="me-4 p-1">
-                            <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">Settings</button>
+                            <button @onclick="async() => await SelectEditPanel(EditPanel.Settings)"
+                                    class="px-1 cursor-pointer border-primary-500 @(SelectedPanel == EditPanel.Settings ? "border-b-4" : string.Empty)">
+                                Settings
+                            </button>
+                        </div>
+                        <div class="me-4 p-1">
+                            <button @onclick="async() => await SelectEditPanel(EditPanel.Libraries)"
+                                    class="px-1 cursor-pointer border-primary-500 @(SelectedPanel == EditPanel.Libraries ? "border-b-4" : string.Empty)">
+                                Libraries
+                            </button>
+                        </div>
+                        <div class="me-4 p-1">
+                            <button @onclick="async() => await SelectEditPanel(EditPanel.IgnoreRules)"
+                                    class="px-1 cursor-pointer border-primary-500 @(SelectedPanel == EditPanel.IgnoreRules ? "border-b-4" : string.Empty)">
+                                Ignore rules
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <Panel CssClass="p-4">
+                <EditForm EditContext="EditContext">
 
-                    @if (EditContext is not null)
-                    {
-                        <EditForm EditContext="EditContext">
+                    <DataAnnotationsValidator />
 
+                    <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.Settings">
+
+                        @if (EditContext is not null)
+                        {
                             <div class="">
-
-                                <DataAnnotationsValidator />
-
-                                <ValidationSummary />
 
                                 @if (Validations.Any())
                                 {
@@ -123,81 +136,81 @@
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                        }
 
-                                <div class="mb-6">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h2 clas s="text-xs font-bold mb-4">Ignore rules</h2>
-                                            <p class="mt-2 mb-3 text-xs italic">Below you can enter a regex value that will ignore errors written to the std-err source. If the regex matches, the log will be marked as info.</p>
-                                        </div>
-                                        <div>
-                                            <button @onclick="AddIgnoreRule" class="btn-secondary !p-2 !text-xs">Add</button>
-                                        </div>
+                    </Panel>
+
+                    <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.Libraries">
+                        <h2 class="text-xs font-bold mb-4">Libraries</h2>
+
+                        @if (ComponentLibraries is null || !ComponentLibraries.Any())
+                        {
+                            <p class="text-xs">No libraries found, go <a href="/libraries" class="link">add</a> one.</p>
+                        }
+                        else
+                        {
+                            <div class="px-4">
+                                @foreach (var library in ComponentLibraries)
+                                {
+                                    <div>
+                                        <label class="flex items-center justify-start">
+                                            <InputCheckbox @bind-Value="library.InUse" class="me-2 accent-red-500" />
+                                            <span class="">@library.Name</span>
+                                        </label>
                                     </div>
+                                }
+                            </div>
+                        }
+                    </Panel>
 
-                                    <div class="px-4">
-                                        <div class="flex gap-2 items-baseline text-2xs mt-2 mb-1">
-                                            <div class="w-full">
-                                                <p>Regex</p>
-                                            </div>
-                                            <div class="min-w-20 text-center">
-                                                <p>Enabled</p>
-                                            </div>
-                                            <div class="min-w-10 text-center">
-                                                <p>Delete</p>
-                                            </div>
-                                        </div>
+                    <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.IgnoreRules">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 clas s="text-xs font-bold mb-4">Ignore rules</h2>
+                                <p class="mt-2 mb-3 text-xs italic">Below you can enter a regex value that will ignore errors written to the std-err source. If the regex matches, the log will be marked as info.</p>
+                            </div>
+                            <div>
+                                <button @onclick="AddIgnoreRule" class="btn-secondary !p-2 !text-xs">Add</button>
+                            </div>
+                        </div>
 
-                                        <div class="max-h-60 overflow-auto">
-                                            @if (Stack.IgnoreRules.Count != 0)
-                                            {
-                                                @foreach (var rule in Stack.IgnoreRules)
-                                                {
-                                                    <div class="flex gap-2 items-baseline">
-                                                        <InputText @bind-Value="rule.Value" class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
-                                                        <label class="min-w-20 text-center">
-                                                            <InputCheckbox @bind-Value="rule.Enabled" class="accent-red-500" />
-                                                        </label>
-                                                        <div @onclick="async() => await RemoveIgnoreRule(rule)" class="min-w-10 text-center cursor-pointer">
-                                                            <span><Icon Type="FontAwesomeIcons.Xmark" Size="IconSize.Sm" /></span>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            }
-                                        </div>
-
-                                    </div>
+                        <div class="px-4">
+                            <div class="flex gap-2 items-baseline text-2xs mt-2 mb-1">
+                                <div class="w-full">
+                                    <p>Regex</p>
                                 </div>
-
-                                <div class="my-4">
-                                    <h2 class="text-xs font-bold mb-4">Libraries</h2>
-
-                                    <div class="px-4">
-                                        @if (ComponentLibraries is null || !ComponentLibraries.Any())
-                                        {
-                                            <p class="p-1">No libraries found, go <a href="/libraries" class="link">add</a> one.</p>
-                                        }
-                                        else
-                                        {
-                                            @foreach (var library in ComponentLibraries)
-                                            {
-                                                <div>
-                                                    <label class="flex items-center justify-start">
-                                                        <InputCheckbox @bind-Value="library.InUse" class="me-2 accent-red-500" />
-                                                        <span class="">@library.Name</span>
-                                                    </label>
-                                                </div>
-                                            }
-                                        }
-                                    </div>
+                                <div class="min-w-20 text-center">
+                                    <p>Enabled</p>
+                                </div>
+                                <div class="min-w-10 text-center">
+                                    <p>Delete</p>
                                 </div>
                             </div>
 
-                        </EditForm>
-                    }
-                </Panel>
+                            <div class="max-h-60 overflow-auto">
+                                @if (Stack.IgnoreRules.Count != 0)
+                                {
+                                    @foreach (var rule in Stack.IgnoreRules)
+                                    {
+                                        <div class="flex gap-2 items-baseline">
+                                            <InputText @bind-Value="rule.Value" class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+                                            <label class="min-w-20 text-center">
+                                                <InputCheckbox @bind-Value="rule.Enabled" class="accent-red-500" />
+                                            </label>
+                                            <div @onclick="async() => await RemoveIgnoreRule(rule)" class="min-w-10 text-center cursor-pointer">
+                                                <span><Icon Type="FontAwesomeIcons.Xmark" Size="IconSize.Sm" /></span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </Panel>
 
-                @if (Stack.Id != 0)
+                </EditForm>
+
+                @if (Stack.Id != 0 && SelectedPanel == EditPanel.Settings)
                 {
                     <div class="flex items-center justify-between text-sm mt-8 mb-4">
                         <div class="flex items-center">
