@@ -5,21 +5,21 @@
 
 <Page BreadcrumbLinks="BreadcrumbLinks">
 
-    <div class="flex justify-between items-start mb-6">
+    <div class="flex flex-wrap justify-between items-start mb-6">
         <h1 class="text-3xl">Stacks</h1>
-        <div class="flex items-start mt-2 gap-4">
-            <div>
-                <button @onclick="Execute" hidden="@(SelectedStacks.Count == 0)"
-                        class="btn-primary">
+        <div class="w-full md:w-fit flex md:block mt-2">
+            @if (SelectedStacks.Count != 0)
+            {
+                <button @onclick="Execute"
+                        class="btn-primary me-2 md:w-fit">
                     Execute (@SelectedStacks.Count)
                 </button>
-            </div>
-            <div>
-                <button @onclick="() => NavigationManager.NavigateToStackAdd()"
-                        class="btn-primary">
-                    Add stack
-                </button>
-            </div>
+            }
+
+            <button @onclick="() => NavigationManager.NavigateToStackAdd()"
+                    class="btn-primary md:w-fit">
+                Add stack
+            </button>
         </div>
     </div>
 
