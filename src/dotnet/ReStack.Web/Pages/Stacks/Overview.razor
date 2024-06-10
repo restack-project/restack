@@ -5,13 +5,21 @@
 
 <Page BreadcrumbLinks="BreadcrumbLinks">
 
-    <div class="flex flex-wrap justify-between items-start mb-6">
+    <div class="flex justify-between items-start mb-6">
         <h1 class="text-3xl">Stacks</h1>
-        <div class="w-full md:w-fit flex md:block mt-2">
-            <a  href="stacks/add"
-               class="btn-primary">
-                Add stack
-            </a>
+        <div class="flex items-start mt-2 gap-4">
+            <div>
+                <button @onclick="Execute" hidden="@(SelectedStacks.Count == 0)"
+                        class="btn-primary">
+                    Execute (@SelectedStacks.Count)
+                </button>
+            </div>
+            <div>
+                <button @onclick="() => NavigationManager.NavigateToStackAdd()"
+                        class="btn-primary">
+                    Add stack
+                </button>
+            </div>
         </div>
     </div>
 
@@ -39,7 +47,7 @@
     <Panel>
         <Loader Visible="IsLoading" ShowOverlay="true" />
 
-        @if (!Stacks.Any())
+        @if (!Stacks.Any() && !IsLoading)
         {
             <div class="flex flex-wrap items-center justify-between w-full h-full min-h-20">
                 <p class="text-sm p-6 w-full text-center">No stacks found, go <a href="stacks/add" class="link">add</a> your first one!</p>
@@ -47,34 +55,49 @@
         }
         else
         {
-            <div class="flex items-center justify-between px-4 py-6 text-2xs border-b border-gray-200 dark:border-neutral-500">
-                <p>Stack</p>
-                <p>Last executed</p>
+            <div class="flex items-center justify-between py-6 text-2xs border-b border-gray-200 dark:border-neutral-500">
+                <div class="flex items-center">
+                    <div class="ps-3" @onclick="async() => await ToggleAllSelected()">
+                        <InputCheckbox Value="SelectedStacks.Count == Stacks.Count() && Stacks.Count() != 0"
+                                       ValueExpression="(() => IsLoading)" />
+                    </div>
+                    <p class="ps-3">Stack</p>
+                </div>
+                <div class="pe-3">
+                    <p>Last executed</p>
+                </div>
             </div>
 
             @foreach (var stack in Stacks)
             {
-                <div class="flex items-center justify-between px-4 py-6 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600"
-                     @onclick="() => NavigationManager.NavigateToStackDetail(stack.Id)">
-
-                    <div class="flex items-center text-md">
-
-                        <JobStateLabel Job="stack.LastJob" />
-
-                        <p class="ms-2 font-bold">@stack.Name</p>
+                <div class="flex items-baseline border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
+                    <div class="ps-3" @onclick="async() => await ToggleSelected(stack)">
+                        <InputCheckbox Value="SelectedStacks.Contains(stack)"
+                                       ValueExpression="(() => IsLoading)" />
                     </div>
 
-                    <div class="text-sm">
-                        @if (stack.LastJob is not null)
-                        {
-                            <p title="@stack.LastJob.Started">@stack.LastJob.Started.ToAgo()</p>
-                        }
-                        else
-                        {
-                            <p>None</p>
-                        }
-                    </div>
+                    <div class="flex items-center justify-between px-4 py-6 w-full"
+                         @onclick="() => NavigationManager.NavigateToStackDetail(stack.Id)">
 
+                        <div class="flex items-center text-md">
+
+                            <JobStateLabel Job="stack.LastJob" />
+
+                            <p class="ms-2 font-bold">@stack.Name</p>
+                        </div>
+
+                        <div class="text-sm">
+                            @if (stack.LastJob is not null)
+                            {
+                                <p title="@stack.LastJob.Started">@stack.LastJob.Started.ToAgo()</p>
+                            }
+                            else
+                            {
+                                <p>None</p>
+                            }
+                        </div>
+
+                    </div>
                 </div>
             }
         }

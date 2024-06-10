@@ -1,4 +1,6 @@
-﻿<p title="@Job?.State.ToString()">
+﻿@inherits BaseComponent
+
+<p title="@Job?.State.ToString()">
 
     @if (Job?.State == JobState.Queued.ToString())
     {

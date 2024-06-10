@@ -14,6 +14,11 @@ public static class NavigationManagerExtensions
         navigationManager.NavigateTo($"/stacks/{stackId}", forceLoad);
     }
 
+    public static void NavigateToStackAdd(this NavigationManager navigationManager, bool forceLoad = false)
+    {
+        navigationManager.NavigateTo($"/stacks/add", forceLoad);
+    }
+
     public static void NavigateToJobDetail(this NavigationManager navigationManager, int stackId, int jobId, bool forceLoad = false)
     {
         navigationManager.NavigateTo($"/stacks/{stackId}/job/{jobId}", forceLoad);

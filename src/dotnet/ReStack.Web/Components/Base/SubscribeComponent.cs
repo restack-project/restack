@@ -16,9 +16,9 @@ public class SubscribeComponent
 
     public Task Handle(StackChangedEvent value, CancellationToken cancellationToken) => OnStackChanged(value.Model);
 
-    public virtual Task OnStackChanged(StackModel model) { return Task.CompletedTask; }
-    public virtual Task OnLogAdded(LogModel model) { return Task.CompletedTask; }
-    public virtual Task OnJobChanged(JobModel model, bool deleted) { return Task.CompletedTask; }
+    public virtual Task OnStackChanged(StackModel model) { return StateHasChangedAsync(); }
+    public virtual Task OnLogAdded(LogModel model) { return StateHasChangedAsync(); }
+    public virtual Task OnJobChanged(JobModel model, bool deleted) { return StateHasChangedAsync(); }
 
     protected override Task OnInitializedAsync()
     {

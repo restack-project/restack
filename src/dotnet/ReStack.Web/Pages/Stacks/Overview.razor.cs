@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
+using ReStack.Web.Extensions;
+using ReStack.Web.Modals;
 
 namespace ReStack.Web.Pages.Stacks;
 
@@ -13,6 +15,7 @@ public partial class Overview
 
     public string SearchText { get; set; }
     public IEnumerable<StackModel> Stacks { get; private set; } = [];
+    public ICollection<StackModel> SelectedStacks { get; private set; } = [];
 
     public override async Task OnStackChanged(StackModel model)
     {
@@ -23,6 +26,21 @@ public partial class Overview
         _stacks.Insert(index, model);
 
         await StateHasChangedAsync();
+    }
+
+    public override async Task OnJobChanged(JobModel model, bool deleted)
+    {
+        var existingStack = _stacks.FirstOrDefault(x => x.LastJob.Id == model.Id);
+
+        if (existingStack is not null)
+        {
+            var existingJob = existingStack.Jobs.FirstOrDefault(model => model.Id == model.Id);
+
+            existingStack.Jobs.Remove(existingJob);
+            existingStack.Jobs.Add(model);
+        }
+
+        await base.OnJobChanged(model, deleted);
     }
 
     protected override async Task OnInitializedAsync()
@@ -71,5 +89,59 @@ public partial class Overview
         SearchText = string.Empty;
 
         await Search();
+    }
+
+    private async Task ToggleSelected(StackModel model)
+    {
+        var existingStack = SelectedStacks.FirstOrDefault(x => x.Id == model.Id);
+
+        if (existingStack is null)
+        {
+            SelectedStacks.Add(model);
+        }
+        else
+        {
+            SelectedStacks.Remove(existingStack);
+        }
+
+        await StateHasChangedAsync();
+    }
+
+    private async Task ToggleAllSelected(bool forceUnselect = false)
+    {
+        if (SelectedStacks.Count == Stacks.Count() || forceUnselect)
+        {
+            SelectedStacks.Clear();
+        }
+        else
+        {
+            SelectedStacks = Stacks.ToList();
+        }
+
+        await StateHasChangedAsync();
+    }
+
+    private async Task Execute()
+    {
+        if (QuestionResult.Yes == await Modal.Question($"Continue?", $"This will execute {SelectedStacks.Count} stack(s) at the same time."))
+        {
+            await SetLoading(true);
+
+            foreach (var stack in SelectedStacks)
+            {
+                try
+                {
+                    stack.Jobs.Add(await StackClient.Execute(stack.Id));
+                }
+                catch (Exception ex)
+                {
+                    await ShowError(ex);
+                }
+            }
+
+            await ToggleAllSelected(forceUnselect: true);
+        }
+
+        await SetLoading(false);
     }
 }
