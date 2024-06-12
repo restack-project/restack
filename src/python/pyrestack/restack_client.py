@@ -21,6 +21,7 @@ Example decorest based client to Swagger Petstore sample service.
 """
 
 import json
+import typing
 import xml.etree.ElementTree as ET
 
 from decorest import DELETE, GET, HEAD, POST, PUT
@@ -28,19 +29,20 @@ from decorest import HttpStatus, RestClient
 from decorest import __version__
 from decorest import accept, body, content, endpoint, header, on, query
 
+JsonDictType = typing.Dict[str, typing.Any]
 
 class StackAPI(RestClient):
     
     @GET('stack/')
-    # @on(200, lambda r: r.json())
-    # @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    def get_all(self):
+    @on(200, lambda r: r.json())
+    @on(HttpStatus.ANY, lambda r: r.raise_for_status())
+    def get_all(self) -> JsonDictType:
         """Get all stacks status."""
 
     @GET('stack/{stack_id}/execute')
-    # @on(200, lambda r: r.json())
-    # @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    def execute(self, stack_id):
+    @on(200, lambda r: r.json())
+    @on(HttpStatus.ANY, lambda r: r.raise_for_status())
+    def execute(self, stack_id) -> JsonDictType:
         """Execute stack by id."""
     
     # """Everything about your Pets."""
@@ -89,69 +91,6 @@ class StackAPI(RestClient):
     #     """Upload an image."""
 
 
-# class StoreAPI(RestClient):
-#     """Access to Petstore orders."""
-#     @GET('store/inventory')
-#     def get_inventory(self):
-#         """Return pet inventories by status."""
-
-#     @POST('store/order')
-#     @body('order', lambda o: json.dumps(o))
-#     def place_order(self, order):
-#         """Place an order for a pet."""
-
-#     @GET('store/order/{order_id}')
-#     def get_order(self, order_id):
-#         """Find purchase order by ID."""
-
-#     @DELETE('store/order/{order_id}')
-#     def delete_order(self, order_id):
-#         """Delete purchase order by ID."""
-
-
-# class UserAPI(RestClient):
-#     """Operations about user."""
-#     @POST('user')
-#     @body('user', lambda o: json.dumps(o))
-#     @on(200, lambda r: True)
-#     def create_user(self, user):
-#         """Create user."""
-
-#     @POST('user/createWithArray')
-#     @body('user', lambda o: json.dumps(o))
-#     def create_users_from_array(self, user):
-#         """Create list of users with given input array."""
-
-#     @POST('user/createWithList')
-#     @body('user', lambda o: json.dumps(o))
-#     def create_users_from_list(self, user):
-#         """Create list of users with given input array."""
-
-#     @GET('user/login')
-#     @query('username')
-#     @query('password')
-#     @on(200, lambda r: r.content)
-#     def login(self, username, password):
-#         """Log user into the system."""
-
-#     @GET('user/logout')
-#     def logout(self):
-#         """Log out current logged in user session."""
-
-#     @GET('user/{username}')
-#     def get_user(self, username):
-#         """Get user by user name."""
-
-#     @PUT('user/{username}')
-#     @body('user', lambda o: json.dumps(o))
-#     def update_user(self, username, user):
-#         """Update user."""
-
-#     @DELETE('user/{username}')
-#     def delete_user(self, username):
-#         """Delete user."""
-
-
 @header('user-agent', 'decorest/{v}'.format(v=__version__))
 @content('application/json')
 @accept('application/json')
@@ -159,6 +98,5 @@ class ReStackClient(StackAPI):
     """Swagger ReStack client."""
 
 # client = ReStackClient('http://192.168.5.12:5000/api', backend='requests')
-
-# print(client.get_all())
+# print(client.execute(7))
 # print(client.get_all())
