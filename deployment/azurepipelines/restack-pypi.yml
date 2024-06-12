@@ -22,7 +22,7 @@ steps:
 
 - task: TwineAuthenticate@1
   inputs:
-    pythonUploadServiceConnection: 'PyPi Floris'
+    pythonUploadServiceConnection: 'pypi'
 
 - script: python -m build
   workingDirectory: $(Build.SourcesDirectory)/src/python
