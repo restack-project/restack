@@ -21,13 +21,14 @@ Example decorest based client to Swagger Petstore sample service.
 """
 
 import json
+import asyncio
 import typing
 import xml.etree.ElementTree as ET
 
 from decorest import DELETE, GET, HEAD, POST, PUT
 from decorest import HttpStatus, RestClient
 from decorest import __version__
-from decorest import accept, body, content, endpoint, header, on, query
+from decorest import accept, body, content, endpoint, header, on, query, backend
 
 JsonDictType = typing.Dict[str, typing.Any]
 
@@ -36,13 +37,13 @@ class StackAPI(RestClient):
     @GET('stack/')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    def get_all(self) -> JsonDictType:
+    async def get_all(self) -> JsonDictType:
         """Get all stacks status."""
 
     @GET('stack/{stack_id}/execute')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    def execute(self, stack_id) -> JsonDictType:
+    async def execute(self, stack_id) -> JsonDictType:
         """Execute stack by id."""
     
     # """Everything about your Pets."""
@@ -94,9 +95,13 @@ class StackAPI(RestClient):
 @header('user-agent', 'decorest/{v}'.format(v=__version__))
 @content('application/json')
 @accept('application/json')
+@backend('httpx')
 class ReStackClient(StackAPI):
     """Swagger ReStack client."""
 
-# client = ReStackClient('http://192.168.5.12:5000/api', backend='requests')
-# print(client.execute(7))
-# print(client.get_all())
+# async def main():
+#     client = ReStackClient('http://192.168.5.12:5000/api')
+
+#     print(await client.execute(7))
+
+# asyncio.run(main())
