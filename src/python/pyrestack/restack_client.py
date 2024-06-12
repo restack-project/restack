@@ -34,13 +34,13 @@ JsonDictType = typing.Dict[str, typing.Any]
 
 class StackAPI(RestClient):
     
-    @GET('stack/')
+    @GET('api/stack/')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
     async def get_all(self) -> JsonDictType:
         """Get all stacks status."""
 
-    @GET('stack/{stack_id}/execute')
+    @GET('api/stack/{stack_id}/execute')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
     async def execute(self, stack_id) -> JsonDictType:
@@ -100,7 +100,7 @@ class ReStackClient(StackAPI):
     """Swagger ReStack client."""
 
 # async def main():
-#     client = ReStackClient('http://192.168.5.12:5000/api')
+#     client = ReStackClient('http://192.168.5.12:5000')
 
 #     print(await client.execute(7))
 
