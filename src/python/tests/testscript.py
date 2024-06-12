@@ -1,22 +1,10 @@
-import asyncio
+from pyrestack import restack_client
 
-import aiohttp
+URL = "http://192.168.5.12:5000/api"
+# USERNAME = ""
+# PASSWORD = ""
+# VERIFY_SSL = True
 
-from pyrestack import ReStack
-
-URL = "http://192.168.5.12:5000"
-USERNAME = ""
-PASSWORD = ""
-VERIFY_SSL = True
-
-
-async def main():
-
-    async with aiohttp.ClientSession() as session:
-        restack_api = ReStack(session, URL, USERNAME, PASSWORD, VERIFY_SSL)
-        response = await restack_api.async_execute_stack(1)
-        print(response.data)
-
-
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+client = restack_client.ReStackClient(URL, backend='requests')
+# print(client.get_all())
+print(client.execute(7))
