@@ -17,6 +17,7 @@ public class StackModel : IEquatable<StackModel>
     public ICollection<ComponentModel> Components { get; set; } = [];
     public ICollection<StackIgnoreRuleModel> IgnoreRules { get; set; } = [];
     public JobModel LastJob { get => Jobs.OrderByDescending(x => x.Sequence).FirstOrDefault(); }
+    public JobModel RunningJob { get => Jobs.Where(x => x.State == JobState.Running.ToString() || x.State == JobState.Queued.ToString()).OrderByDescending(x => x.Sequence).FirstOrDefault(); }
 
     // todo not the correct place because it's a 3th library
     public string GetIcon()
