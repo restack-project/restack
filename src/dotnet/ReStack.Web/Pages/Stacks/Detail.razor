@@ -73,7 +73,7 @@
                     {
                         lock (_jobLock)
                         {
-                            @foreach (var job in Jobs)
+                            @foreach (var job in Jobs.OrderByDescending(x => x.Sequence))
                             {
                                 <a href="@($"/stacks/{StackId}/job/{job.Id}")" class="flex w-full items-center justify-between px-4 py-4 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
 
