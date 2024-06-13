@@ -46,7 +46,7 @@ class StackAPI(RestClient):
     async def stack_execute(self, stack_id) -> JsonDictType:
         """Execute stack by id."""
 
-    @GET('api/stack/{stack_id}/cancem')
+    @GET('api/stack/{stack_id}/cancel')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
     async def stack_cancel(self, stack_id) -> JsonDictType:
