@@ -2,6 +2,8 @@
 using FluentValidation;
 using Microsoft.Extensions.Options;
 using ReStack.Application.Aggregates.Base;
+using ReStack.Application.Notifications;
+using ReStack.Application.StackHandling;
 using ReStack.Common.Interfaces;
 using ReStack.Common.Interfaces.Aggregates;
 using ReStack.Common.Interfaces.Repositories;
@@ -13,6 +15,9 @@ namespace ReStack.Application.Aggregates;
 
 public class StackAggregate(
     IStackRepository _repository
+    , IJobRepository _jobRepository
+    , ITokenCache _tokenCache
+    , INotificationPublisher _notificationPublisher
     , IValidator<StackModel> _validator
     , IMapper _mapper
     , IStackExecutor _stackExecutor
@@ -85,6 +90,29 @@ public class StackAggregate(
         var jobModel = _mapper.Map<JobModel>(jobEntity);
 
         return jobModel;
+    }
+
+    public async Task<JobModel> Cancel(int stackId)
+    {
+        var runningJob = await _jobRepository.GetFirstRunningJob(stackId);
+
+        if (runningJob is null)
+            return null;
+
+        var token = _tokenCache.Get(runningJob.Id);
+        var job = await _jobRepository.Get(runningJob.Id);
+
+        token?.Cancel();
+
+        if (job.State != Domain.ValueObjects.JobState.Cancelled)
+        {
+            job.State = Domain.ValueObjects.JobState.Cancelled;
+
+            await _jobRepository.Update(job);
+            await _notificationPublisher.JobChanged(job);
+        }
+
+        return _mapper.Map<JobModel>(job);
     }
 
     public override Task<List<StackModel>> GetAll(CancellationToken cancellationToken = default)

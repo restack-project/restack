@@ -30,14 +30,25 @@ public partial class Overview
 
     public override async Task OnJobChanged(JobModel model, bool deleted)
     {
-        var existingStack = _stacks.FirstOrDefault(x => x.LastJob.Id == model.Id);
+        var existingStack = _stacks.FirstOrDefault(x => model.StackId == x.Id);
 
         if (existingStack is not null)
         {
-            var existingJob = existingStack.Jobs.FirstOrDefault(model => model.Id == model.Id);
+            var existingJob = existingStack.Jobs.FirstOrDefault(x => x.Id == model.Id);
 
-            existingStack.Jobs.Remove(existingJob);
-            existingStack.Jobs.Add(model);
+            if (existingJob is null)
+            {
+                existingStack.Jobs.Add(model);
+            }
+            else
+            {
+                existingStack.Jobs.Remove(existingJob);
+
+                if (!deleted)
+                {
+                    existingStack.Jobs.Add(model);
+                }
+            }
         }
 
         await base.OnJobChanged(model, deleted);
@@ -131,7 +142,31 @@ public partial class Overview
             {
                 try
                 {
-                    stack.Jobs.Add(await StackClient.Execute(stack.Id));
+                    await StackClient.Execute(stack.Id);
+                }
+                catch (Exception ex)
+                {
+                    await ShowError(ex);
+                }
+            }
+
+            await ToggleAllSelected(forceUnselect: true);
+        }
+
+        await SetLoading(false);
+    }
+
+    private async Task Cancel()
+    {
+        if (QuestionResult.Yes == await Modal.Question($"Continue?", $"This will cancel all {SelectedStacks.Count} running job(s) at the same time."))
+        {
+            await SetLoading(true);
+
+            foreach (var stack in SelectedStacks)
+            {
+                try
+                {
+                    await StackClient.Cancel(stack.Id);
                 }
                 catch (Exception ex)
                 {

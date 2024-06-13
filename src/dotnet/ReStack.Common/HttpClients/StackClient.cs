@@ -15,6 +15,9 @@ public class StackClient(
     public Task<List<StackModel>> GetAll(int numberOfJobs, CancellationToken token = default)
         => MakeRequest<List<StackModel>>(HttpMethod.Get, EndPoints.Stack_GetAll.AddQueryString($"numberOfJobs={numberOfJobs}"), cancellationToken: token);
 
+    public Task<JobModel> Cancel(int stackId)
+        => MakeRequest<JobModel>(HttpMethod.Get, EndPoints.Stack_Cancel.Resolve("stackId", stackId));
+
     public Task<string> DownloadFile(int stackId, CancellationToken token = default)
         => MakeRequest<string>(HttpMethod.Get, EndPoints.Stack_ReadFile.Resolve("stackId", stackId), cancellationToken: token);
 

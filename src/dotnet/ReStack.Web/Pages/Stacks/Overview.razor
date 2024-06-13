@@ -10,6 +10,10 @@
         <div class="w-full md:w-fit flex md:block mt-2">
             @if (SelectedStacks.Count != 0)
             {
+                <button @onclick="Cancel"
+                        class="btn-primary me-2 md:w-fit">
+                    Cancel (@SelectedStacks.Count)
+                </button>
                 <button @onclick="Execute"
                         class="btn-primary me-2 md:w-fit">
                     Execute (@SelectedStacks.Count)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReStack.Api.Extensions;
+using ReStack.Application.Aggregates;
 using ReStack.Common.Constants;
 using ReStack.Common.Interfaces.Aggregates;
 using ReStack.Common.Models;
@@ -35,6 +36,10 @@ public class StackController(
     [HttpGet(EndPoints.Stack_Execute)]
     public Task<ActionResult<JobModel>> Execute([FromRoute] int stackId)
         => _stackAggregate.Execute(stackId).Handle(this);
+
+    [HttpGet(EndPoints.Stack_Cancel)]
+    public Task<ActionResult<JobModel>> Cancel([FromRoute] int stackId)
+        => _stackAggregate.Cancel(stackId).Handle(this);
 
     [HttpGet(EndPoints.Stack_ReadFile)]
     public async Task<ActionResult<string>> ReadFile([FromRoute] int stackId)

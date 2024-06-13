@@ -11,6 +11,7 @@ public static class EndPoints
     public const string Stack_Execute = "api/stack/{stackId}/execute";
     public const string Stack_ReadFile = "api/stack/{stackId}/file/read";
     public const string Stack_UploadFile = "api/stack/{stackId}/file";
+    public const string Stack_Cancel = "api/stack/{stackId}/cancel";
 
     public const string Job = "api/job";
     public const string Job_Get = "api/job/{jobId}";
