@@ -45,6 +45,12 @@ class StackAPI(RestClient):
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
     async def stack_execute(self, stack_id) -> JsonDictType:
         """Execute stack by id."""
+
+    @GET('api/stack/{stack_id}/cancem')
+    @on(200, lambda r: r.json())
+    @on(HttpStatus.ANY, lambda r: r.raise_for_status())
+    async def stack_cancel(self, stack_id) -> JsonDictType:
+        """Cancel stack by id."""
     
     # """Everything about your Pets."""
     # @POST('pet')
