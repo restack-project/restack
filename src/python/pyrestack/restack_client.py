@@ -37,13 +37,13 @@ class StackAPI(RestClient):
     @GET('api/stack/')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    async def get_all(self) -> JsonDictType:
+    async def stack_get_all(self) -> JsonDictType:
         """Get all stacks status."""
 
     @GET('api/stack/{stack_id}/execute')
     @on(200, lambda r: r.json())
     @on(HttpStatus.ANY, lambda r: r.raise_for_status())
-    async def execute(self, stack_id) -> JsonDictType:
+    async def stack_execute(self, stack_id) -> JsonDictType:
         """Execute stack by id."""
     
     # """Everything about your Pets."""
@@ -102,6 +102,9 @@ class ReStackClient(StackAPI):
 # async def main():
 #     client = ReStackClient('http://192.168.5.12:5000')
 
-#     print(await client.execute(7))
+#     data = await client.stack_get_all()
+
+#     for value in data:
+#         print(value['id'])
 
 # asyncio.run(main())
