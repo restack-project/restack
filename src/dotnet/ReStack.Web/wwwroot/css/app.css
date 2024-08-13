@@ -876,10 +876,6 @@ select {
   display: block;
 }
 
-.inline-block {
-  display: inline-block;
-}
-
 .flex {
   display: flex;
 }
@@ -1058,10 +1054,6 @@ select {
 
 .border-e {
   border-inline-end-width: 1px;
-}
-
-.border-l-4 {
-  border-left-width: 4px;
 }
 
 .border-none {
@@ -1344,6 +1336,12 @@ select {
   opacity: 0.1;
 }
 
+.shadow-\[inset_5px_0_\#00686D\] {
+  --tw-shadow: inset 5px 0 #00686D;
+  --tw-shadow-colored: inset 5px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .outline {
   outline-style: solid;
 }
@@ -1359,11 +1357,11 @@ html, body {
 }
 
 .sidepanel-item.active {
-  border-left-width: 4px;
-  --tw-border-opacity: 1;
-  border-color: rgb(0 104 109 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  --tw-shadow: inset 5px 0 #00686D;
+  --tw-shadow-colored: inset 5px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .sidepanel-item.active:is(.dark *) {

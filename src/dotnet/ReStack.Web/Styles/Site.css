@@ -14,7 +14,7 @@ html, body {
 }
 
 .sidepanel-item.active {
-    @apply bg-gray-200 dark:bg-neutral-600 border-l-4 border-primary-500;
+    @apply bg-gray-200 dark:bg-neutral-600 shadow-[inset_5px_0_#00686D];
 }
 
 .validation-errors {
