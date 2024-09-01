@@ -832,6 +832,10 @@ select {
   margin-bottom: 1.5rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .me-2 {
   margin-inline-end: 0.5rem;
 }
@@ -1204,20 +1208,12 @@ select {
   padding-bottom: 1.5rem;
 }
 
-.pe-1 {
-  padding-inline-end: 0.25rem;
-}
-
 .pe-2 {
   padding-inline-end: 0.5rem;
 }
 
 .pe-3 {
   padding-inline-end: 0.75rem;
-}
-
-.ps-1 {
-  padding-inline-start: 0.25rem;
 }
 
 .ps-2 {
