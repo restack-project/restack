@@ -30,6 +30,7 @@ public static class DependencyInjection
         services.AddTransient<IJobRepository, JobRepository>();
         services.AddTransient<IComponentLibraryRepository, ComponentLibraryRepository>();
         services.AddTransient<ILogRepository, LogRepository>();
+        services.AddTransient<ITagRepository , TagRepository>();
 
         return services;
     }

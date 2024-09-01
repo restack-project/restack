@@ -61,6 +61,7 @@ public static class DependencyInjection
         services.AddHttpClient<IJobClient, JobClient>(RegisterHttpClient(configuration));
         services.AddHttpClient<IComponentLibraryClient, ComponentLibraryClient>(RegisterHttpClient(configuration));
         services.AddHttpClient<ISshKeyClient, SshKeyClient>(RegisterHttpClient(configuration));
+        services.AddHttpClient<ITagClient, TagClient>(RegisterHttpClient(configuration));
 
         return services;
     }
@@ -83,6 +84,7 @@ public static class DependencyInjection
         services.AddTransient<IJobAggregate, JobAggregate>();
         services.AddTransient<ISshKeyAggregate, SshKeyAggregate>();
         services.AddTransient<IComponentLibraryAggregate, ComponentLibraryAggregate>();
+        services.AddTransient<ITagAggregate, TagAggregate>();
 
         return services;
     }
