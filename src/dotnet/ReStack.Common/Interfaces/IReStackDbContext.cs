@@ -13,6 +13,8 @@ public interface IReStackDbContext
     DbSet<Component> Component { get; set; }
     DbSet<StackComponent> StackComponent { get; set; }
     DbSet<StackIgnoreRule> StackIgnoreRule { get; set; }
+    DbSet<StackTag> StackTag { get; set; }
+    DbSet<Tag> Tag { get; set; }
 
     void SeedData();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

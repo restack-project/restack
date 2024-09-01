@@ -16,10 +16,13 @@ public class ReStackDbContext(
     public DbSet<Component> Component { get; set; }
     public DbSet<StackComponent> StackComponent { get; set; }
     public DbSet<StackIgnoreRule> StackIgnoreRule { get; set; }
+    public DbSet<StackTag> StackTag { get; set; }
+    public DbSet<Tag> Tag { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<StackComponent>().HasKey(x => new { x.StackId, x.ComponentId });
+        modelBuilder.Entity<StackTag>().HasKey(x => new { x.StackId, x.TagId });
 
         modelBuilder.Entity<ComponentLibrary>().HasMany(x => x.Components).WithOne(x => x.ComponentLibrary).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Component>().HasMany(x => x.Parameters).WithOne(x => x.Component).OnDelete(DeleteBehavior.Cascade);

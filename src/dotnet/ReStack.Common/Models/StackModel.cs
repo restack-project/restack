@@ -16,6 +16,7 @@ public class StackModel : IEquatable<StackModel>
     public ICollection<JobModel> Jobs { get; set; } = [];
     public ICollection<ComponentModel> Components { get; set; } = [];
     public ICollection<StackIgnoreRuleModel> IgnoreRules { get; set; } = [];
+    public ICollection<TagModel> Tags { get; set; } = [];
     public JobModel LastJob { get => Jobs.OrderByDescending(x => x.Sequence).FirstOrDefault(); }
     public JobModel RunningJob { get => Jobs.Where(x => x.State == JobState.Running.ToString() || x.State == JobState.Queued.ToString()).OrderByDescending(x => x.Sequence).FirstOrDefault(); }
 

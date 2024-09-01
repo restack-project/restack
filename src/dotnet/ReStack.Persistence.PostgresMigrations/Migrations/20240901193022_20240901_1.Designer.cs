@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ReStack.Persistence;
@@ -11,9 +12,11 @@ using ReStack.Persistence;
 namespace ReStack.Persistence.PostgresMigrations.Migrations
 {
     [DbContext(typeof(ReStackDbContext))]
-    partial class ReStackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240901193022_20240901_1")]
+    partial class _20240901_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
