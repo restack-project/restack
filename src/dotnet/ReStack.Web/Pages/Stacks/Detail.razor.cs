@@ -68,7 +68,7 @@ public partial class Detail
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new() { { "Stacks", "/stacks" } };
+            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
 
             if (int.TryParse(QueryStackId, out var stackId))
             {
@@ -80,7 +80,7 @@ public partial class Detail
                 Task.Run(LoadMoreJobs);
 #pragma warning restore CS4014
 
-                BreadcrumbLinks.Add(Stack.Name, $"stacks/{StackId}");
+                BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(StackId));
             }
             else
             {

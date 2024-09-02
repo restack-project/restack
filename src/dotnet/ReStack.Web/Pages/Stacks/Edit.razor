@@ -8,7 +8,7 @@
 <Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
     @if (LoadError)
     {
-        <p>No stack found, go back to the <a href="/stacks" class="link">overview</a></p>
+        <p>No stack found, go back to the <a href="@NavigationManager.Stacks()" class="link">overview</a></p>
     }
     else
     {
@@ -17,7 +17,7 @@
             <div class="flex flex-wrap justify-between items-start mb-6">
                 <div class="flex items-center">
                     @{
-                        var url = Stack.Id == 0 ? "/stacks" : $"/stacks/{Stack.Id}";
+                        var url = Stack.Id == 0 ? NavigationManager.Stacks() : NavigationManager.StackDetail(Stack.Id);
                     }
                     <a href="@url" class="pe-2 py-2">
                         <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
@@ -154,7 +154,7 @@
 
                             @if (ComponentLibraries is null || !ComponentLibraries.Any())
                             {
-                                <p class="text-xs">No libraries found, go <a href="/libraries" class="link">add</a> one.</p>
+                                <p class="text-xs">No libraries found, go <a href="@NavigationManager.Libraries()" class="link">add</a> one.</p>
                             }
                             else
                             {
@@ -227,7 +227,7 @@
 
                             @if (Tags is null || !Tags.Any())
                             {
-                                <p class="text-xs">No tags found, go <a href="/tags" class="link">add</a> one.</p>
+                                <p class="text-xs">No tags found, go <a href="@NavigationManager.Settings()" class="link">add</a> one.</p>
                             }
                             else
                             {

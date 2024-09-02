@@ -59,7 +59,7 @@ public partial class Execute
     {
         try
         {
-            BreadcrumbLinks = new() { { "Stacks", "/stacks" } };
+            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
 
             if (int.TryParse(QueryStackId, out var stackId) && int.TryParse(QueryJobId, out var jobId))
             {
@@ -71,7 +71,7 @@ public partial class Execute
 
                 if (Job is not null)
                 {
-                    BreadcrumbLinks.Add(Stack.Name, $"stacks/{StackId}");
+                    BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(stackId));
                     BreadcrumbLinks.Add($"#{Job.Sequence}", $"execute/{JobId}");
 
                     await Search();

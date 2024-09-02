@@ -22,7 +22,7 @@ public partial class Detail
 
             BreadcrumbLinks = new()
             {
-                { "Libraries", "/libraries" }
+                { "Libraries", NavigationManager.Libraries() }
             };
 
             if (int.TryParse(QueryLibraryId, out var libraryId))

@@ -1,4 +1,6 @@
-﻿namespace ReStack.Web.Pages.Settings;
+﻿using ReStack.Web.Extensions;
+
+namespace ReStack.Web.Pages.Settings;
 
 public partial class Overview
 {
@@ -6,7 +8,7 @@ public partial class Overview
     {
         BreadcrumbLinks = new()
         {
-            { "Settings", "/settings" }
+            { "Settings", NavigationManager.Settings() }
         };
 
         return base.OnInitializedAsync();

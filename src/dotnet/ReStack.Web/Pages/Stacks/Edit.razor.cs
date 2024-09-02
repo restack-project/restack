@@ -40,7 +40,7 @@ public partial class Edit
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new() { { "Stacks", "/stacks" } };
+            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
 
             if (bool.TryParse(QueryShowEditor, out var showEditor))
             {
@@ -53,8 +53,8 @@ public partial class Edit
                 {
                     Stack = await StackClient.Get(stackId);
 
-                    BreadcrumbLinks.Add(Stack.Name, $"stacks/{Stack.Id}/");
-                    BreadcrumbLinks.Add("Edit", $"stacks/{Stack.Id}/edit");
+                    BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(stackId));
+                    BreadcrumbLinks.Add("Edit", NavigationManager.StackEdit(stackId));
                 }
                 else
                 {

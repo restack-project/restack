@@ -20,7 +20,7 @@ public partial class Overview
 
             BreadcrumbLinks = new()
             {
-                { "Libraries", "/libraries" }
+                { "Libraries", NavigationManager.Libraries() }
             };
 
             Libraries = await ComponentLibraryClient.GetAll();

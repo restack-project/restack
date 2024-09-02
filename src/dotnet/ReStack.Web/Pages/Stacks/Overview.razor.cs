@@ -63,7 +63,7 @@ public partial class Overview
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new() { { "Stacks", "/stacks" } };
+            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
 
             _stacks = await StackClient.GetAll();
             _tags = await TagClient.GetAll();

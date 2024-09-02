@@ -22,7 +22,7 @@
                 </button>
             }
 
-            <a href="/stacks/add"
+            <a href="@NavigationManager.StackAdd()"
                class="btn-primary md:w-fit">
                 Add stack
             </a>
@@ -69,7 +69,7 @@
         @if (!Stacks.Any() && !IsLoading)
         {
             <div class="flex flex-wrap items-center justify-between w-full h-full min-h-20">
-                <p class="text-sm p-6 w-full text-center">No stacks found, go <a href="stacks/add" class="link">add</a> your first one!</p>
+                <p class="text-sm p-6 w-full text-center">No stacks found, go <a href="@NavigationManager.StackAdd()" class="link">add</a> your first one!</p>
             </div>
         }
         else
@@ -96,7 +96,7 @@
                     </div>
 
                     <a class="flex items-center justify-between px-4 py-6 w-full"
-                       href="/stacks/@stack.Id">
+                       href="@NavigationManager.StackDetail(stack.Id)">
 
                         <div class="flex items-center justify-between w-full text-md flex-wrap">
 

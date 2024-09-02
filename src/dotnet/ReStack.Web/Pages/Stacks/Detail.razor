@@ -7,7 +7,7 @@
 <Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
     @if (LoadError)
     {
-        <p>No stack found, go back to the <a href="/stacks">overview</a></p>
+        <p>No stack found, go back to the <a href="@NavigationManager.Stacks()">overview</a></p>
     }
     else
     {
@@ -15,13 +15,13 @@
         {
             <div class="flex flex-wrap justify-between items-start mb-6">
                 <div class="flex items-center">
-                    <a href="/stacks" class="pe-2 py-2">
+                    <a href="@NavigationManager.Stacks()" class="pe-2 py-2">
                         <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
                     </a>
                     <h1 class="text-xl md:text-3xl ms-2">@Stack.Name</h1>
                 </div>
                 <div class="w-full md:w-fit flex md:block mt-2">
-                    <a href="@($"/stacks/{StackId}/edit")"
+                    <a href="@NavigationManager.StackEdit(Stack.Id)"
                        class="btn-secondary me-2 md:w-fit">
                         Edit
                     </a>
@@ -77,7 +77,7 @@
                         {
                             @foreach (var job in Jobs.OrderByDescending(x => x.Sequence))
                             {
-                                <a href="@($"/stacks/{StackId}/job/{job.Id}")" class="flex w-full items-center justify-between px-4 py-4 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
+                                <a href="@NavigationManager.StackJobDetail(Stack.Id, job.Id)" class="flex w-full items-center justify-between px-4 py-4 border-b cursor-pointer dark:border-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-600">
 
                                     <div class="flex items-center text-md w-[2rem]">
                                         <p class="ms-2 font-bold">@job.Sequence</p>
