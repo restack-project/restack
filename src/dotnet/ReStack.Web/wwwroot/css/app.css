@@ -789,10 +789,6 @@ select {
   z-index: 50;
 }
 
-.-m-3 {
-  margin: -0.75rem;
-}
-
 .m-2 {
   margin: 0.5rem;
 }
@@ -1064,6 +1060,10 @@ select {
   border-radius: 9999px;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1143,6 +1143,11 @@ select {
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -1543,6 +1548,20 @@ html, body {
 .text-3xs {
   font-size: 0.60rem;
   line-height: 0.90rem;
+}
+
+.invalid {
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+.validation-message {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-style: italic;
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 /* DEFAULT */

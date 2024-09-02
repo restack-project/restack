@@ -51,6 +51,14 @@ html, body {
     line-height: 0.90rem;
 }
 
+.invalid {
+    @apply border border-red-500;
+}
+
+.validation-message {
+    @apply text-red-500 text-xs italic;
+}
+
 /* DEFAULT */
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
