@@ -1,24 +1,38 @@
-﻿<CascadingBlazoredModal>
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <div class="w-screen text-3xl h-screen bg-gray-100 dark:bg-neutral-700 dark:text-gray-100 flex flex-col gap-8 items-center justify-center">
+﻿@inject NavigationManager NavigationManager
 
-                    <a href="/">
-                        <img src="img/logo.png" width="75" />
-                    </a>
+<CascadingBlazoredModal>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        @{
+                            var returnUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
 
-                    <div class="text-center">
-                        <p class="mb-4 font-bold">404</p>
-                        <p class="text-lg">Page not found</p>
+                            NavigationManager.NavigateTo($"account/login?redirectUri={returnUrl}", forceLoad: true);
+                        }
+                    </NotAuthorized>
+                    <Authorizing>
+                        <Loader Visible="true" Size="Loader.LoaderSize.Large" />
+                    </Authorizing>
+                </AuthorizeRouteView>
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <div class="w-screen text-3xl h-screen bg-gray-100 dark:bg-neutral-700 dark:text-gray-100 flex flex-col gap-8 items-center justify-center">
+
+                        <a href="/">
+                            <img src="img/logo.png" width="75" />
+                        </a>
+
+                        <div class="text-center">
+                            <p class="mb-4 font-bold">404</p>
+                            <p class="text-lg">Page not found</p>
+                        </div>
                     </div>
-                </div>
-            </LayoutView>
-        </NotFound>
-    </Router>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
 </CascadingBlazoredModal>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReStack.Api.Extensions;
 using ReStack.Application.Aggregates;
 using ReStack.Common.Constants;
@@ -9,6 +10,7 @@ using System.Text;
 namespace ReStack.Api.Controllers;
 
 [ApiController]
+[Authorize]
 public class StackController(
     IStackAggregate _stackAggregate
 ) : ControllerBase

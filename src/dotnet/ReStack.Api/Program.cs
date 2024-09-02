@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using PipShell;
 using ReStack.Application;
 using ReStack.Application.Notifications.Channels;
@@ -12,7 +13,7 @@ namespace ReStack.Api
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args); 
+            var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
@@ -24,7 +25,42 @@ namespace ReStack.Api
             builder.Services.AddSwaggerGen();
             builder.Services.AddSignalR();
             builder.Services.AddHealthChecks();
-            
+
+            builder.Services
+                .AddAuthentication()
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.Authority = "https://auth.hlann.be/application/o/restack-floris";
+                options.Audience = "LhrhZCzJR1bYF5iiIZD20zw1Te77uSGU0XLKv4qd";
+                options.MapInboundClaims = false;
+
+                options.Events = new();
+                options.Events.OnAuthenticationFailed = async c =>
+                {
+
+                };
+                options.Events.OnTokenValidated = async c =>
+                {
+
+                };
+                options.Events.OnChallenge= async c =>
+                {
+
+                };
+                options.Events.OnForbidden = async c =>
+                {
+
+                };
+                options.Events.OnMessageReceived = async c =>
+                {
+
+                };
+                options.Events.OnTokenValidated = async c =>
+                {
+
+                };
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
