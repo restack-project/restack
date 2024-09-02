@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
+using System.Diagnostics.Eventing.Reader;
 
 namespace ReStack.Web.Pages.Settings.Panels;
 
@@ -57,6 +59,24 @@ public partial class TagsPanel
 
     private async Task Delete(TagModel tag)
     {
+        if (await Modal.Question($"Delete tag '{tag.Name}'?", "If this tag is used on stack(s), it will no longer be visible.") == Modals.QuestionResult.Yes)
+        {
+            try
+            {
+                await SetLoading(true);
 
+                await TagClient.Delete(tag.Id);
+
+                await LoadTags();
+            }
+            catch (Exception e)
+            {
+                await ShowError(e);
+            }
+            finally
+            {
+                await SetLoading(false);
+            }
+        }
     }
 }

@@ -28,7 +28,10 @@ public partial class AddTag
 
         if (IsNew)
         {
-            Tag.HexColor = string.Format("#{0:X6}", new Random().Next(0x1000000));
+            Tag = new()
+            {
+                HexColor = string.Format("#{0:X6}", new Random().Next(0x1000000))
+            };
         }
 
         EditContext = new(Tag);
