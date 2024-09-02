@@ -1,0 +1,25 @@
+﻿@inherits Panel
+
+@if (Visible)
+{
+    <h2 class="text-xs font-bold mb-4">Libraries</h2>
+
+    @if (Libraries is null || !Libraries.Any())
+    {
+        <p class="text-xs">No libraries found, go <a href="@NavigationManager.Libraries()" class="link">add</a> one.</p>
+    }
+    else
+    {
+        <div class="px-4">
+            @foreach (var library in Libraries)
+            {
+                <div>
+                    <label class="flex items-center justify-start">
+                        <InputCheckbox @bind-Value="library.InUse" class="me-2 accent-red-500" />
+                        <span class="">@library.Name</span>
+                    </label>
+                </div>
+            }
+        </div>
+    }
+}

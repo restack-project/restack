@@ -1,0 +1,28 @@
+﻿@inherits Panel
+
+@if (Visible)
+{
+    <h2 class="text-xs font-bold mb-4">Tags</h2>
+
+    @if (Tags is null || !Tags.Any())
+    {
+        <p class="text-xs">No tags found, go <a href="@NavigationManager.Settings()" class="link">add</a> one.</p>
+    }
+    else
+    {
+        <div class="px-4">
+            @foreach (var tag in Tags)
+            {
+                <div>
+                    <label class="flex items-center justify-start">
+                        <InputCheckbox Value="Stack.Tags.Any(x => x.Id == tag.Id)"
+                                       ValueChanged="async(v) => await TagToggle(v, tag)"
+                                       ValueExpression="() => _"
+                                       class="me-2 accent-red-500" />
+                        <span class="">@tag.Name</span>
+                    </label>
+                </div>
+            }
+        </div>
+    }
+}

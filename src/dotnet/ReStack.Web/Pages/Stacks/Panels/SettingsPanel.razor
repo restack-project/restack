@@ -1,0 +1,48 @@
+﻿@inherits Panel
+
+@if (Visible)
+{
+    <h2 class="text-xs font-bold mb-4">Settings</h2>
+
+    <div class="">
+
+        @if (Validations.Any())
+        {
+            <ul class="validation-errors">
+                @foreach (var validation in Validations)
+                {
+                    <li class="validation-message">@validation</li>
+                }
+            </ul>
+        }
+
+        <div class="mb-6">
+            <label class="mb-4 block">
+                <span class="text-sm w-full">Name</span>
+                <InputText @bind-Value="Stack.Name" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+            </label>
+
+            <div class="mb-4">
+                <label>
+                    <span class="text-sm w-full">Run as</span>
+                    <InputSelect @bind-Value="Stack.Type" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0">
+                        @foreach (var type in Enum.GetValues<ProgrammingLanguage>())
+                        {
+                            <option value="@type.ToString()">
+                                <span class="fs-9">@type</span>
+                            </option>
+                        }
+                    </InputSelect>
+                </label>
+            </div>
+
+            <div>
+                <label class="flex items-center justify-start">
+                    <InputCheckbox @bind-Value="Stack.FailOnStdError" class="me-2" />
+                    <span class="">Fail on std error output</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+}

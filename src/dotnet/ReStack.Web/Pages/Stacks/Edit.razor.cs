@@ -5,6 +5,7 @@ using ReStack.Common.Exceptions;
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Domain.ValueObjects;
+using ReStack.Web.Components;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
 using ReStack.Web.Pages.Stacks.Models;
@@ -31,8 +32,7 @@ public partial class Edit
     public Blace.Components.Editor<StackFile> Editor { get; set; }
     public EditContext EditContext { get; set; }
     public List<string> Validations { get; private set; } = [];
-    public EditPanel SelectedPanel { get; set; } = EditPanel.Settings;
-    public bool PlaceHolder { get; set; }
+    public PanelSelector PanelSelector { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -228,43 +228,6 @@ public partial class Edit
         }
     }
 
-    private async Task SelectEditPanel(EditPanel panel)
-    {
-        SelectedPanel = panel;
-
-        await StateHasChangedAsync();
-    }
-
-    private async Task AddIgnoreRule()
-    {
-        Stack.IgnoreRules.Add(new()
-        {
-            StackId = Stack.Id,
-            Enabled = true,
-        });
-
-        await Task.CompletedTask;
-    }
-
-    private async Task DeleteIgnoreRule(StackIgnoreRuleModel ignoreRule)
-    {
-        Stack.IgnoreRules.Remove(ignoreRule);
-
-        await Task.CompletedTask;
-    }
-
-    private async Task TagToggle(bool value, TagModel tag)
-    {
-        if (value)
-        {
-            Stack.Tags.Add(tag);
-        }
-        else
-        {
-            Stack.Tags.Remove(tag);
-        }
-    }
-
     private async Task ToggleEditor()
     {
         ShowEditor = !ShowEditor;
@@ -287,10 +250,5 @@ public partial class Edit
             _messageStore.Add(() => Stack.Type, "Type cannot be empty");
 
         return EditContext.Validate();
-    }
-
-    public enum EditPanel
-    {
-        Settings, IgnoreRules, Libraries, Tags
     }
 }

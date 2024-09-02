@@ -7,6 +7,7 @@ public partial class PanelSelector
     private List<Panel> _panels = [];
 
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback OnPanelChanged { get; set; }
 
     public Panel ActivePanel { get; set; }
 
@@ -26,6 +27,8 @@ public partial class PanelSelector
     private async Task SelectPanel(Panel panel)
     {
         ActivePanel = panel;
+
+        await OnPanelChanged.InvokeAsync();
 
         await StateHasChangedAsync();
     }
