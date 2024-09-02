@@ -19,6 +19,7 @@ public partial class Edit
 
     [Inject] public IStackClient StackClient { get; set; }
     [Inject] public IComponentLibraryClient ComponentLibraryClient { get; set; }
+    [Inject] public ITagClient TagClient { get; set; }
 
     [Parameter] public string QueryStackId { get; set; }
     [SupplyParameterFromQuery(Name = "showEditor")][Parameter] public string QueryShowEditor { get; set; }
@@ -26,10 +27,12 @@ public partial class Edit
     public StackModel Stack { get; set; }
     public bool ShowEditor { get; set; } = true;
     public List<ComponentLibraryModel> ComponentLibraries { get; private set; }
+    public List<TagModel> Tags { get; private set; }
     public Blace.Components.Editor<StackFile> Editor { get; set; }
     public EditContext EditContext { get; set; }
     public List<string> Validations { get; private set; } = [];
     public EditPanel SelectedPanel { get; set; } = EditPanel.Settings;
+    public bool PlaceHolder { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,6 +75,7 @@ public partial class Edit
             }
 
             ComponentLibraries = await ComponentLibraryClient.GetAll();
+            Tags = await TagClient.GetAll();
             EditContext = new(Stack);
             _messageStore = new(EditContext);
 
@@ -249,6 +253,18 @@ public partial class Edit
         await Task.CompletedTask;
     }
 
+    private async Task TagToggle(bool value, TagModel tag)
+    {
+        if (value)
+        {
+            Stack.Tags.Add(tag);
+        }
+        else
+        {
+            Stack.Tags.Remove(tag);
+        }
+    }
+
     private async Task ToggleEditor()
     {
         ShowEditor = !ShowEditor;
@@ -275,6 +291,6 @@ public partial class Edit
 
     public enum EditPanel
     {
-        Settings, IgnoreRules, Libraries
+        Settings, IgnoreRules, Libraries, Tags
     }
 }

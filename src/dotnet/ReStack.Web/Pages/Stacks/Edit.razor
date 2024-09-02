@@ -88,6 +88,12 @@
                                 Ignore rules
                             </button>
                         </div>
+                        <div class="me-4 p-1">
+                            <button @onclick="async() => await SelectEditPanel(EditPanel.Tags)"
+                                    class="px-1 cursor-pointer border-primary-500 @(SelectedPanel == EditPanel.Tags ? "border-b-4" : string.Empty)">
+                                Tags
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -98,6 +104,7 @@
                         <DataAnnotationsValidator />
 
                         <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.Settings">
+                            <h2 class="text-xs font-bold mb-4">Settings</h2>
 
                             <div class="">
 
@@ -168,7 +175,7 @@
                         <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.IgnoreRules">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h2 clas s="text-xs font-bold mb-4">Ignore rules</h2>
+                                    <h2 class="text-xs font-bold mb-4">Ignore rules</h2>
                                     <p class="mt-2 mb-3 text-xs italic">Below you can enter a regex value that will ignore errors written to the std-err source. If the regex matches, the log will be marked as info.</p>
                                 </div>
                                 <div>
@@ -176,7 +183,7 @@
                                 </div>
                             </div>
 
-                            <div class="px-4">
+                            <div class="">
                                 <div class="flex gap-2 items-baseline text-2xs mt-2 mb-1">
                                     <div class="w-full">
                                         <p>Regex</p>
@@ -205,8 +212,40 @@
                                             </div>
                                         }
                                     }
+                                    else
+                                    {
+                                        <div class="w-full h-full flex justify-center items-center min-h-20">
+                                            <p class="text-sm md:text-md">No rules found, go <button @onclick="AddIgnoreRule" class="link">add</button> your first one!</p>
+                                        </div>
+                                    }
                                 </div>
                             </div>
+                        </Panel>
+
+                        <Panel CssClass="p-4" Visible="SelectedPanel == EditPanel.Tags">
+                            <h2 class="text-xs font-bold mb-4">Tags</h2>
+
+                            @if (Tags is null || !Tags.Any())
+                            {
+                                <p class="text-xs">No tags found, go <a href="/tags" class="link">add</a> one.</p>
+                            }
+                            else
+                            {
+                                <div class="px-4">
+                                    @foreach (var tag in Tags)
+                                    {
+                                        <div>
+                                            <label class="flex items-center justify-start">
+                                                <InputCheckbox Value="Stack.Tags.Any(x => x.Id == tag.Id)"
+                                                               ValueChanged="async(v) => await TagToggle(v, tag)"
+                                                               ValueExpression="() => PlaceHolder"
+                                                               class="me-2 accent-red-500" />
+                                                <span class="">@tag.Name</span>
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            }
                         </Panel>
 
                     </EditForm>

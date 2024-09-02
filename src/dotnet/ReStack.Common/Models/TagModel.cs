@@ -2,7 +2,7 @@
 
 namespace ReStack.Common.Models;
 
-public class TagModel
+public class TagModel : IEquatable<TagModel>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -21,5 +21,10 @@ public class TagModel
     public TagModel()
     {
         
+    }
+
+    public bool Equals(TagModel other)
+    {
+        return other?.Id == Id;
     }
 }
