@@ -121,13 +121,13 @@
                                 <div class="mb-6">
                                     <label class="mb-4 block">
                                         <span class="text-sm w-full">Name</span>
-                                        <InputText @bind-Value="Stack.Name" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+                                        <InputText @bind-Value="Stack.Name" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
                                     </label>
 
                                     <div class="mb-4">
                                         <label>
                                             <span class="text-sm w-full">Run as</span>
-                                            <InputSelect @bind-Value="Stack.Type" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0">
+                                            <InputSelect @bind-Value="Stack.Type" class="block mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0">
                                                 @foreach (var type in Enum.GetValues<ProgrammingLanguage>())
                                                 {
                                                     <option value="@type.ToString()">
@@ -202,7 +202,7 @@
                                         @foreach (var rule in Stack.IgnoreRules)
                                         {
                                             <div class="flex gap-2 items-baseline">
-                                                <InputText @bind-Value="rule.Value" class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+                                                <InputText @bind-Value="rule.Value" class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
                                                 <label class="min-w-20 text-center">
                                                     <InputCheckbox @bind-Value="rule.Enabled" class="accent-red-500" />
                                                 </label>

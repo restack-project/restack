@@ -14,34 +14,26 @@
 
         <label>
             <span>Source</span>
-            <InputText @bind-Value="Library.Source" class="block mt-2 w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+            <InputText @bind-Value="Library.Source" class="block mt-2 w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
         </label>
 
         @if (Validations.Any())
         {
-            <div class="flex items-center justify-between text-sm mt-8 mb-4">
-                <div class="flex items-center">
-                    <div class="me-4 p-1">
-                        <button class="me-4 border-b-4 px-1 cursor-pointer border-red-500">Validations</button>
+            <div class="border border-red-500 rounded overflow-auto mt-4 text-2xs" style="max-height: 20rem; overflow: auto;">
+
+                <p class="bg-red-600 p-2 text-xs">Error(s)</p>
+
+                @foreach (var validation in Validations)
+                {
+                    <div class="p-2">
+                        <p class="text-3xs">@validation.Key:</p>
+                        @foreach (var value in validation.Value)
+                        {
+                            <p class="px-1 py-2 text-2xs">@value</p>
+                        }
                     </div>
-                </div>
+                }
             </div>
-
-            <Panel CssClass="p-2 mt-6">
-
-                <div class="p-1" style="max-height: 20rem; overflow: auto;">
-                    @foreach (var validation in Validations)
-                    {
-                        <div class="mb-3">
-                            <p class="text-sm">@validation.Key:</p>
-                            @foreach (var value in validation.Value)
-                            {
-                                <p class="px-1 py-2 text-xs">@value</p>
-                            }
-                        </div>
-                    }
-                </div>
-            </Panel>
         }
 
         <div class="flex items-center justify-between gap-2 mt-8" role="group">

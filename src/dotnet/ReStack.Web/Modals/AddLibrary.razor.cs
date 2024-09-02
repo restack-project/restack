@@ -75,14 +75,12 @@ public partial class AddLibrary
         if (string.IsNullOrWhiteSpace(Library.Source))
         {
             _store.Add(() => Library.Source, $"can not be empty");
-            Validations.Add("Source", ["Source can not be empty"]);
         }
         else
         {
             if (!Uri.TryCreate(Library.Source, UriKind.Absolute, out var _))
             {
                 _store.Add(() => Library.Source, $"is not a valid url");
-                Validations.Add("Source", ["Source is not a valid url"]);
             }
         }
 
