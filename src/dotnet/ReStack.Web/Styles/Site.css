@@ -59,6 +59,15 @@ html, body {
     @apply text-red-500 text-xs italic;
 }
 
+.overflow-hide {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
+    .overflow-hide::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
+
 /* DEFAULT */
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

@@ -19,7 +19,7 @@
                     @{
                         var url = Stack.Id == 0 ? NavigationManager.Stacks() : NavigationManager.StackDetail(Stack.Id);
                     }
-                    <a href="@url" class="pe-2 py-2">
+                    <a @onclick="async() => await JS.GoBack()" class="pe-2 py-2 cursor-pointer">
                         <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
                     </a>
                     @if (Stack.Id != 0)

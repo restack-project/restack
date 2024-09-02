@@ -15,7 +15,7 @@
         {
             <div class="flex flex-wrap justify-between items-start mb-6">
                 <div class="flex items-center">
-                    <a href="@NavigationManager.StackDetail(Stack.Id)" class="pe-2 py-2">
+                    <a @onclick="async() => await JS.GoBack()" class="pe-2 py-2 cursor-pointer">
                         <Icon Type="FontAwesomeIcons.ArrowLeft" Size="IconSize.Md" />
                     </a>
                     <h1 class="text-xl md:text-3xl ms-2">Job: #@Job.Sequence - <span class="text-lg">@Stack.Name</span></h1>

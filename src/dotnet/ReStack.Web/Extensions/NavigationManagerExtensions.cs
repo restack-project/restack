@@ -4,7 +4,7 @@ namespace ReStack.Web.Extensions;
 
 public static class NavigationManagerExtensions
 {
-    public static string Stacks(this NavigationManager _) => "/";
+    public static string Stacks(this NavigationManager _, int? selectedTag = null, string search = null) => $"/stacks?tab={selectedTag}&search={search}";
     public static string StackAdd(this NavigationManager _) => "/stacks/add";
     public static string StackEdit(this NavigationManager _, int stackId) => $"/stacks/{stackId}/edit";
     public static string StackDetail(this NavigationManager _, int stackId) => $"/stacks/{stackId}";

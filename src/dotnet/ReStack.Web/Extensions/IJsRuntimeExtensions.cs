@@ -18,6 +18,11 @@ public static class IJsRuntimeExtensions
         await ValueTask.CompletedTask;
     }
 
+    public static ValueTask GoBack(this IJSRuntime js)
+    {
+        return js.InvokeVoidAsync("history.back");
+    }
+
     public static ValueTask<bool> IsScrollBottom(this IJSRuntime js)
     {
         return js.InvokeAsync<bool>("window.IsScrollBottom");

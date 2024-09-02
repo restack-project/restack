@@ -15,7 +15,9 @@ public partial class Overview
     [Inject] public IJobClient JobClient { get; set; }
     [Inject] public ITagClient TagClient { get; set; }
 
-    public string SearchText { get; set; }
+    [SupplyParameterFromQuery(Name = "tab")][Parameter] public string QuerySelectedTag { get; set; }
+    [SupplyParameterFromQuery(Name = "search")][Parameter] public string SearchText { get; set; }
+    
     public IEnumerable<StackModel> Stacks { get; private set; } = [];
     public ICollection<StackModel> SelectedStacks { get; private set; } = [];
     public TagModel SelectedTag { get; private set; }
@@ -68,6 +70,11 @@ public partial class Overview
             _stacks = await StackClient.GetAll();
             _tags = await TagClient.GetAll();
 
+            if (!string.IsNullOrWhiteSpace(QuerySelectedTag))
+            {
+                SelectedTag = _tags.FirstOrDefault(x => x.Id.ToString() == QuerySelectedTag);
+            }
+
             await Search();
         }
         catch (Exception ex)
@@ -102,6 +109,8 @@ public partial class Overview
         Stacks = [.. Stacks.OrderBy(x => x.Name)];
 
         await StateHasChangedAsync();
+
+        await JS.UpdateUrl(NavigationManager.Stacks(SelectedTag?.Id, SearchText));
     }
 
     private async Task ClearSearch()

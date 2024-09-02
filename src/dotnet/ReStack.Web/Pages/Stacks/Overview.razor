@@ -12,14 +12,14 @@
         <div class="w-full md:w-fit flex md:block mt-2">
             @if (SelectedStacks.Count != 0)
             {
-                <button @onclick="Cancel"
+                <a @onclick="Cancel"
                         class="btn-primary me-2 md:w-fit">
                     Cancel (@SelectedStacks.Count)
-                </button>
-                <button @onclick="Execute"
+                </a>
+                <a @onclick="Execute"
                         class="btn-primary me-2 md:w-fit">
                     Execute (@SelectedStacks.Count)
-                </button>
+                </a>
             }
 
             <a href="@NavigationManager.StackAdd()"
@@ -30,9 +30,9 @@
     </div>
 
 
-    <div class="flex items-center justify-between text-sm mb-4">
+    <div class="flex items-center justify-between text-sm mb-4 flex-wrap">
 
-        <div class="flex items-center">
+        <div class="flex items-center overflow-auto">
             <div class="me-4 p-1">
                 <button class="me-4 px-1 cursor-pointer @(SelectedTag == null ? "border-b-4 border-primary-500" : string.Empty)"
                         @onclick="async() => await SelectTag(null)">
@@ -50,7 +50,7 @@
                 </div>
             }
         </div>
-        <div class="relative">
+        <div class="relative mt-2 w-full md:w-fit">
             <input type="text" class="block w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded px-4 py-2 focus:bg-white focus:border-gray-500 focus:ring-0"
                    placeholder="Search for stack" @bind-value="SearchText" @bind-value:after="Search" />
 
@@ -69,7 +69,14 @@
         @if (!Stacks.Any() && !IsLoading)
         {
             <div class="flex flex-wrap items-center justify-between w-full h-full min-h-20">
-                <p class="text-sm p-6 w-full text-center">No stacks found, go <a href="@NavigationManager.StackAdd()" class="link">add</a> your first one!</p>
+                @if (string.IsNullOrWhiteSpace(SearchText) && SelectedTag is null)
+                {
+                    <p class="text-sm p-6 w-full text-center">No stacks found, go <a href="@NavigationManager.StackAdd()" class="link">add</a> your first one!</p>
+                }
+                else
+                {
+                    <p class="text-sm p-6 w-full text-center">No results found, <a @onclick="ClearSearch" class="link cursor-pointer">clear</a> your filter?</p>
+                }
             </div>
         }
         else
