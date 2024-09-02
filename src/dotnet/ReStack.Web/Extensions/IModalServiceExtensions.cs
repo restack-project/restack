@@ -80,4 +80,22 @@ public static class IModalServiceExtensions
 
         return result;
     }
+
+    public static IModalReference AddTag(this IModalService modal)
+    {
+        var parameters = new ModalParameters
+        {
+        };
+        var options = new ModalOptions()
+        {
+            HideHeader = true,
+            Size = ModalSize.Medium,
+            Position = ModalPosition.TopCenter,
+            AnimationType = ModalAnimationType.PopIn,
+            Class = "bg-gray-100 dark:bg-neutral-900 p-6 max-w-lg m-auto mt-4 md:mt-10 rounded dark:text-gray-100"
+        };
+        var result = modal.Show<AddTag>(string.Empty, parameters, options);
+
+        return result;
+    }
 }

@@ -1,0 +1,58 @@
+﻿@inherits BaseComponent
+
+<h1 class="text-2xl mb-4">
+    Add tag
+</h1>
+
+<div class="relative w-full">
+
+    <EditForm EditContext="EditContext" OnSubmit="Add">
+
+        <DataAnnotationsValidator />
+
+        <Loader Visible="IsLoading" />
+
+        <label class="mb-4 inline-block w-full">
+            <span>Tag</span>
+            <InputText @bind-Value="Tag.Name" class="block mt-2 w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0" />
+        </label>
+
+        <label class="mb-4 inline-block w-full">
+            <span>Color</span>
+            <input type="color" @bind-value="@Tag.HexColor" class="h-[44px] block mt-2 w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded p-2" />
+        </label>
+
+        @if (Validations.Any())
+        {
+            <div class="flex items-center justify-between text-sm mb-4">
+                <div class="flex items-center">
+                    <div class="me-4 p-1">
+                        <button class="me-4 border-b-4 px-1 cursor-pointer border-red-500">Error(s)</button>
+                    </div>
+                </div>
+            </div>
+
+            <Panel CssClass="p-2">
+
+                <div class="p-1" style="max-height: 20rem; overflow: auto;">
+                    @foreach (var validation in Validations)
+                    {
+                        <div class="mb-3">
+                            <p class="text-sm">@validation.Key:</p>
+                            @foreach (var value in validation.Value)
+                            {
+                                <p class="px-1 py-2 text-xs">@value</p>
+                            }
+                        </div>
+                    }
+                </div>
+            </Panel>
+        }
+
+        <div class="flex items-center justify-between gap-2 mt-8" role="group">
+            <button type="submit" class="w-full btn-primary" disabled="@IsLoading">Add</button>
+            <button type="button" class="w-full btn-secondary" @onclick="Cancel">Cancel</button>
+        </div>
+
+    </EditForm>
+</div>

@@ -17,4 +17,9 @@ public class TagModel
             HexColor = stackTag.Tag.HexColor;
         }
     }
+
+    public TagModel()
+    {
+        
+    }
 }

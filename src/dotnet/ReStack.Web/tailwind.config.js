@@ -15,6 +15,7 @@ module.exports = {
         , "../ReStack.Web/Modals/**.{razor,cs}"
         , "../ReStack.Web/Pages/**.{razor,cs}"
         , "../ReStack.Web/Pages/*/**.{razor,cs}"
+        , "../ReStack.Web/Pages/*/*/**.{razor,cs}"
         , "../ReStack.Web/Shared/**.{razor,cs}"
         , "../ReStack.Web/Extensions/**.cs"
         , "../ReStack.Web/Styles/Site.css",
