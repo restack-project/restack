@@ -242,7 +242,7 @@ public partial class Edit
         await Task.CompletedTask;
     }
 
-    private async Task RemoveIgnoreRule(StackIgnoreRuleModel ignoreRule)
+    private async Task DeleteIgnoreRule(StackIgnoreRuleModel ignoreRule)
     {
         Stack.IgnoreRules.Remove(ignoreRule);
 

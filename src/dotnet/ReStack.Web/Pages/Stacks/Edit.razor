@@ -199,7 +199,7 @@
                                                 <label class="min-w-20 text-center">
                                                     <InputCheckbox @bind-Value="rule.Enabled" class="accent-red-500" />
                                                 </label>
-                                                <div @onclick="async() => await RemoveIgnoreRule(rule)" class="min-w-10 text-center cursor-pointer">
+                                                <div @onclick="async() => await DeleteIgnoreRule(rule)" class="min-w-10 text-center cursor-pointer">
                                                     <span><Icon Type="FontAwesomeIcons.Xmark" Size="IconSize.Sm" /></span>
                                                 </div>
                                             </div>

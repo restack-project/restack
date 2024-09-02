@@ -29,7 +29,7 @@ public partial class SshPanel
 
     protected async Task Regenerate()
     {
-        var answer = await Modal.Question("Regenerate ssh key?", "Be aware, this will remove the existing one.");
+        var answer = await Modal.Question("Regenerate ssh key?", "Be aware, this will delete the existing one.");
 
         if (answer == QuestionResult.Yes)
         {
