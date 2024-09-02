@@ -34,8 +34,21 @@
 
         <div class="flex items-center">
             <div class="me-4 p-1">
-                <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">All</button>
+                <button class="me-4 px-1 cursor-pointer @(SelectedTag == null ? "border-b-4 border-primary-500" : string.Empty)"
+                        @onclick="async() => await SelectTag(null)">
+                    All
+                </button>
             </div>
+
+            @foreach (var tag in _tags)
+            {
+                <div class="me-4 p-1">
+                    <button class="me-4 px-1 cursor-pointer @(SelectedTag == tag ? "border-b-4 border-primary-500" : string.Empty)"
+                            @onclick="async() => await SelectTag(tag)">
+                        @tag.Name
+                    </button>
+                </div>
+            }
         </div>
         <div class="relative">
             <input type="text" class="block w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded px-4 py-2 focus:bg-white focus:border-gray-500 focus:ring-0"
@@ -98,7 +111,7 @@
                                 {
                                     @foreach (var tag in stack.Tags)
                                     {
-                                        <span class="inline-flex items-center rounded-md px-2 py-1 text-3xs font-medium text-white" style="background: @tag.HexColor;">@tag.Name</span>
+                                        <span class="inline-flex items-center rounded-md px-2 py-1 text-2xs text-white font-bold" style="background: @tag.HexColor;">@tag.Name</span>
                                     }
                                 }
                             </div>

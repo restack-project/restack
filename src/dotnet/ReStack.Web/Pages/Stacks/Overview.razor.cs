@@ -9,13 +9,16 @@ namespace ReStack.Web.Pages.Stacks;
 public partial class Overview
 {
     private List<StackModel> _stacks = [];
+    private List<TagModel> _tags = [];
 
     [Inject] public IStackClient StackClient { get; set; }
     [Inject] public IJobClient JobClient { get; set; }
+    [Inject] public ITagClient TagClient { get; set; }
 
     public string SearchText { get; set; }
     public IEnumerable<StackModel> Stacks { get; private set; } = [];
     public ICollection<StackModel> SelectedStacks { get; private set; } = [];
+    public TagModel SelectedTag { get; private set; }
 
     public override async Task OnStackChanged(StackModel model)
     {
@@ -63,6 +66,7 @@ public partial class Overview
             BreadcrumbLinks = new() { { "Stacks", "/stacks" } };
 
             _stacks = await StackClient.GetAll();
+            _tags = await TagClient.GetAll();
 
             await Search();
         }
@@ -90,6 +94,11 @@ public partial class Overview
             Stacks = _stacks.Where(x => x.Name.Contains(SearchText, StringComparison.CurrentCultureIgnoreCase));
         }
 
+        if (SelectedTag is not null)
+        {
+            Stacks = Stacks.Where(x => x.Tags.Contains(SelectedTag));
+        }
+
         Stacks = [.. Stacks.OrderBy(x => x.Name)];
 
         await StateHasChangedAsync();
@@ -98,6 +107,13 @@ public partial class Overview
     private async Task ClearSearch()
     {
         SearchText = string.Empty;
+
+        await Search();
+    }
+
+    private async Task SelectTag(TagModel tag)
+    {
+        SelectedTag = tag;
 
         await Search();
     }
