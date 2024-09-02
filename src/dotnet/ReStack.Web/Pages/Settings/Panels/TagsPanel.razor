@@ -47,15 +47,15 @@
                              @ondblclick="async() => await Edit(tag)">
 
                             <InputText @bind-Value="tag.Name"
-                                       class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0"
-                                       disabled
-                                       @ondblclick="async() => await Edit(tag)" />
+                                       class="block h-[2rem] mt-2 w-full bg-gray-200 dark:bg-neutral-600 text-gray-700 dark:text-gray-100 text-sm border-none rounded py-2 md:py-3 focus:bg-white focus:border-gray-500 focus:ring-0 cursor-pointer"
+                                       @onclick="async() => await Edit(tag)"
+                                       @onclick:preventDefault="true" />
 
                             <input @bind-value="@tag.HexColor"
-                                   class="w-full bg-gray-300 dark:bg-neutral-700 text-gray-700 dark:text-gray-100 text-sm border-none rounded"
+                                   class="block h-[2rem] mt-2 w-full rounded bg-gray-200 dark:bg-neutral-600 cursor-pointer"
                                    type="color"
-                                   disabled 
-                                   @ondblclick="async() => await Edit(tag)" />
+                                   @onclick="async() => await Edit(tag)"
+                                   @onclick:preventDefault="true"/>
 
                             <div @onclick="async() => await Edit(tag)"
                                  class="min-w-10 text-center cursor-pointer">
