@@ -41,14 +41,13 @@ public partial class Overview
     {
         try
         {
-            var modal = Modal.AddLibrary();
-            var result = await modal.Result;
+            var result = await Modal.AddLibrary();
 
-            if (!result.Cancelled && result.Data is ComponentLibraryModel library)
+            if (result is not null)
             {
-                if (!Libraries.Any(x => x.Id == library.Id))
+                if (!Libraries.Any(x => x.Id == result.Id))
                 {
-                    Libraries.Add(library);
+                    Libraries.Add(result);
                 }
             }
         }

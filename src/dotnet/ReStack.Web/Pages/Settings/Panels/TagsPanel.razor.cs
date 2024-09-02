@@ -37,10 +37,9 @@ public partial class TagsPanel
 
     private async Task Add()
     {
-        var modal = Modal.AddTag();
-        var result = await modal.Result;
+        var result = await Modal.AddTag();
 
-        if (!result.Cancelled)
+        if (result is not null)
         {
             await LoadTags();
         }

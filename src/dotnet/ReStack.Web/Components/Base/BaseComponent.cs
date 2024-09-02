@@ -64,13 +64,11 @@ public class BaseComponent : ComponentBase
 
     private async Task ShowError(string issue, string cause, Exception exception, Dictionary<string, Task> actions)
     {
-        var modal = Modal.Error((MarkupString)issue, (MarkupString)cause, exception, actions, unhandled: false);
-        await modal.Result;
+        await Modal.Error((MarkupString)issue, (MarkupString)cause, exception, actions, unhandled: false);
     }
 
     private async Task ShowUnhandledError(Exception exception)
     {
-        var modal = Modal.Error((MarkupString)string.Empty, (MarkupString)string.Empty, exception, null, unhandled: true);
-        await modal.Result;
+        await Modal.Error((MarkupString)string.Empty, (MarkupString)string.Empty, exception, null, unhandled: true);
     }
 }
