@@ -9,7 +9,9 @@
         <h1 class="md:text-3xl text-xl">Settings</h1>
     </div>
 
-    <SshPanel />
-    <TagsPanel />
+    <PanelSelector>
+        <SshPanel Title="Ssh" Sequence="1" />
+        <TagsPanel Title="Tags" Sequence="2" />
+    </PanelSelector>
 
 </Page>

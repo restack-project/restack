@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ReStack.Common.Interfaces.Clients;
+using ReStack.Web.Components;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
 
 namespace ReStack.Web.Pages.Settings.Panels;
 
-public partial class SshPanel
+public partial class SshPanel : Panel
 {
     [Inject] public ISshKeyClient SshClient { get; set; }
 

@@ -1,15 +1,7 @@
-﻿@inherits BaseComponent
+﻿@inherits Panel
 
-<div class="flex items-center justify-between text-sm mb-4">
-    <div class="flex items-center">
-        <div class="me-4 p-1">
-            <button class="me-4 border-b-4 px-1 cursor-pointer border-primary-500">SSH</button>
-        </div>
-    </div>
-</div>
-
-<Panel CssClass="p-3">
-
+@if (Visible)
+{
     <div class="flex flex-wrap md:flex-nowrap">
         <div class="w-full mb-2">
             <label class="w-full mb-4">
@@ -29,10 +21,11 @@
                 </div>
                 <div class="ps-1">
                     <button class="btn-secondary"
-                            @onclick="Regenerate">Regenerate</button>
+                            @onclick="Regenerate">
+                        Regenerate
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-</Panel>
+}

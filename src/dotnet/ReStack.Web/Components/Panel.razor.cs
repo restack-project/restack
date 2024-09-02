@@ -1,11 +1,26 @@
 ﻿using Microsoft.AspNetCore.Components;
+using ReStack.Web.Components.Base;
 
 namespace ReStack.Web.Components;
 
-public partial class Panel
+public partial class Panel : BaseComponent
 {
+    [CascadingParameter] private PanelSelector Parent { get; set; }
+
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string CssClass { get; set; }
-    [Parameter] public bool Visible { get; set; } = true;
-    [Parameter] public bool Loading { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public int Sequence { get; set; }
+    
+    protected bool Visible { get => Parent is null || Parent?.ActivePanel == this; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Parent is not null)
+        {
+            await Parent.AddPage(this);
+        }
+
+        await base.OnInitializedAsync();
+    }
 }

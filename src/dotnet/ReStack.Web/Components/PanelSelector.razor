@@ -1,0 +1,29 @@
+﻿@inherits BaseComponent
+
+<div class="flex items-center justify-between text-sm mb-4 flex-wrap">
+
+    <div class="flex items-center overflow-auto">
+        @foreach (var panel in _panels)
+        {
+            <button class="me-4 px-1 pb-2 cursor-pointer @(ActivePanel == panel ? "shadow-[inset_0_-5px_#00686D]" : string.Empty)"
+                    @onclick="async() => await SelectPanel(panel)">
+                @panel.Title
+            </button>
+        }
+    </div>
+    <div class="relative mt-2 w-full md:w-fit">
+    </div>
+
+</div>
+
+<CascadingValue Value="this">
+
+    <div class="relative min-h-20 bg-gray-300 min-h-20 mb-8 rounded dark:shadow-md dark:bg-neutral-700 dark:shadow-neutral-900 p-3 @ActivePanel?.CssClass">
+
+        <Loader Visible="ActivePanel is object && ActivePanel.IsLoading" />
+
+        @ChildContent
+
+    </div>
+
+</CascadingValue>
