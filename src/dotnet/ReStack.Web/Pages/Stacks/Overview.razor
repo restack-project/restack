@@ -85,14 +85,26 @@
                     <a class="flex items-center justify-between px-4 py-6 w-full"
                        href="/stacks/@stack.Id">
 
-                        <div class="flex items-center text-md">
+                        <div class="flex items-center justify-between w-full text-md flex-wrap">
 
-                            <JobStateLabel Job="stack.LastJob" />
+                            <div class="flex">
+                                <JobStateLabel Job="stack.LastJob" />
 
-                            <p class="ms-2 font-bold">@stack.Name</p>
+                                <p class="ms-2 font-bold">@stack.Name</p>
+                            </div>
+
+                            <div class="flex gap-2 w-full mt-3 md:w-fit md:mt-0">
+                                @if (stack.Tags.Any())
+                                {
+                                    @foreach (var tag in stack.Tags)
+                                    {
+                                        <span class="inline-flex items-center rounded-md px-2 py-1 text-3xs font-medium text-white" style="background: @tag.HexColor;">@tag.Name</span>
+                                    }
+                                }
+                            </div>
                         </div>
 
-                        <div class="text-sm">
+                        <div class="text-sm min-w-20 flex justify-end">
                             @if (stack.LastJob is not null)
                             {
                                 <p title="@stack.LastJob.Started">@stack.LastJob.Started.ToAgo()</p>
