@@ -53,6 +53,7 @@ public class TagRepository(
         var db = await _context.Tag.FindAsync(entity.Id);
 
         db.Name = entity.Name;
+        db.HexColor = entity.HexColor;
 
         await _context.SaveChangesAsync();
 

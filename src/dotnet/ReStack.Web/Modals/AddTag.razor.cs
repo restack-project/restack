@@ -1,11 +1,10 @@
-﻿using Blazored.Modal.Services;
-using Blazored.Modal;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using ReStack.Common.Exceptions;
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
-using System;
 
 namespace ReStack.Web.Modals;
 
@@ -18,13 +17,19 @@ public partial class AddTag
     [Inject] public ITagClient TagClient { get; set; }
 
     [Parameter] public Dictionary<string, List<string>> Validations { get; set; } = [];
+    [Parameter] public TagModel Tag { get; set; }
 
     public EditContext EditContext { get; set; }
-    public TagModel Tag { get; set; } = new();
+    public bool IsNew { get; set; }
 
     protected override Task OnInitializedAsync()
     {
-        Tag.HexColor = string.Format("#{0:X6}", new Random().Next(0x1000000));
+        IsNew = Tag is null;
+
+        if (IsNew)
+        {
+            Tag.HexColor = string.Format("#{0:X6}", new Random().Next(0x1000000));
+        }
 
         EditContext = new(Tag);
         _store = new(EditContext);
@@ -32,7 +37,7 @@ public partial class AddTag
         return base.OnInitializedAsync();
     }
 
-    private async Task Add()
+    private async Task Save()
     {
         try
         {
@@ -42,7 +47,14 @@ public partial class AddTag
 
             if (await Validate())
             {
-                Tag = await TagClient.Add(Tag);
+                if (IsNew)
+                {
+                    Tag = await TagClient.Add(Tag);
+                }
+                else
+                {
+                    Tag = await TagClient.Update(Tag);
+                }
 
                 await BlazoredModal.CloseAsync(ModalResult.Ok(Tag));
             }

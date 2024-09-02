@@ -45,6 +45,16 @@ public partial class TagsPanel
         }
     }
 
+    private async Task Edit(TagModel tag)
+    {
+        var result = await Modal.AddTag(tag);
+
+        if (result is not null)
+        {
+            await LoadTags();
+        }
+    }
+
     private async Task Delete(TagModel tag)
     {
 

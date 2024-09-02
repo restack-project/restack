@@ -52,6 +52,8 @@ public enum FontAwesomeIcons
     CaretUp,
     [Description("fa-solid fa-caret-down")]
     CaretDown,
+    [Description("fa-solid fa-pencil")]
+    Pencil,
 }
 
 public enum IconSize

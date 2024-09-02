@@ -31,17 +31,18 @@ public static class IModalServiceExtensions
         return QuestionResult.Cancel;
     }
 
-    public static async Task<TagModel> AddTag(this IModalService modal)
+    public static async Task<TagModel> AddTag(this IModalService modal, TagModel tag = null)
     {
         var parameters = new ModalParameters
         {
+            { "Tag", tag }
         };
 
         var result = await ShowModal<AddTag>(modal, parameters);
 
-        if (!result.Cancelled && result.Data is TagModel tag)
+        if (!result.Cancelled && result.Data is TagModel resp)
         {
-            return tag;
+            return resp;
         }
 
         return null;

@@ -6,7 +6,7 @@
 
 <div class="relative w-full">
 
-    <EditForm EditContext="EditContext" OnSubmit="Add">
+    <EditForm EditContext="EditContext" OnSubmit="Save">
 
         <DataAnnotationsValidator />
 
@@ -43,7 +43,7 @@
         }
 
         <div class="flex items-center justify-between gap-2 mt-8" role="group">
-            <button type="submit" class="w-full btn-primary" disabled="@IsLoading">Add</button>
+            <button type="submit" class="w-full btn-primary" disabled="@IsLoading">Save</button>
             <button type="button" class="w-full btn-secondary" @onclick="Cancel">Cancel</button>
         </div>
 
