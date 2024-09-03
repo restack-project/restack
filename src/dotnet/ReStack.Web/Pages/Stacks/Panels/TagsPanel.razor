@@ -6,7 +6,7 @@
 
     @if (Tags is null || !Tags.Any())
     {
-        <p class="text-xs">No tags found, go <a href="@NavigationManager.Settings()" class="link">add</a> one.</p>
+        <p class="text-xs">No tags found, go <a href="@NavigationManager.SettingsTags()" class="link">add</a> one.</p>
     }
     else
     {

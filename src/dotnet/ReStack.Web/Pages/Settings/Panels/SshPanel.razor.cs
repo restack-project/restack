@@ -10,6 +10,8 @@ public partial class SshPanel : Panel
 {
     [Inject] public ISshKeyClient SshClient { get; set; }
 
+    public override string Url { get => "settings/ssh"; }
+
     private async Task<string> GetSshKey()
     {
         var key = string.Empty;

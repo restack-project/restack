@@ -1,4 +1,5 @@
 ﻿@page "/settings"
+@page "/settings/{QueryPanel}"
 
 @inherits BaseComponent
 
@@ -9,7 +10,7 @@
         <h1 class="md:text-3xl text-xl">Settings</h1>
     </div>
 
-    <PanelSelector>
+    <PanelSelector QueryPanel="@NavigationManager.Uri">
         <SshPanel Title="Ssh" Sequence="1" />
         <ReStack.Web.Pages.Settings.Panels.TagsPanel Title="Tags" Sequence="2" />
     </PanelSelector>

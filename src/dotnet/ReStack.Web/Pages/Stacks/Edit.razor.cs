@@ -23,6 +23,7 @@ public partial class Edit
     [Inject] public ITagClient TagClient { get; set; }
 
     [Parameter] public string QueryStackId { get; set; }
+    [Parameter] public string QueryPanel { get; set; }
     [SupplyParameterFromQuery(Name = "showEditor")][Parameter] public string QueryShowEditor { get; set; }
 
     public StackModel Stack { get; set; }

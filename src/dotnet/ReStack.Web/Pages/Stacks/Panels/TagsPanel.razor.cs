@@ -10,6 +10,8 @@ public partial class TagsPanel
     [Parameter] public StackModel Stack { get; set; }
     [Parameter] public List<TagModel> Tags { get; set; }
 
+    public override string Url => $"stacks/{Stack.Id}/edit/tags";
+
     private async Task TagToggle(bool value, TagModel tag)
     {
         if (value)

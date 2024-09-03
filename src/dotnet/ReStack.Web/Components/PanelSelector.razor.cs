@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using ReStack.Web.Extensions;
 
 namespace ReStack.Web.Components;
 
@@ -8,6 +10,7 @@ public partial class PanelSelector
 
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public EventCallback OnPanelChanged { get; set; }
+    [Parameter] public string QueryPanel { get; set; }
 
     public Panel ActivePanel { get; set; }
 
@@ -16,7 +19,7 @@ public partial class PanelSelector
         _panels.Add(panel);
         _panels = [.. _panels.OrderBy(x => x.Sequence)];
 
-        if (_panels.Count == 1)
+        if (!string.IsNullOrWhiteSpace(panel.Url) && NavigationManager.Uri.Split('?')[0].EndsWith(panel.Url))
         {
             ActivePanel = panel;
         }
@@ -29,6 +32,21 @@ public partial class PanelSelector
         ActivePanel = panel;
 
         await OnPanelChanged.InvokeAsync();
+
+        if (!string.IsNullOrWhiteSpace(panel.Url))
+        {
+            var queryParameters = NavigationManager.Uri.Split('?');
+            var url = panel.Url;
+
+            if (queryParameters.Length > 1)
+            {
+                url = $"{url}?{queryParameters[1]}";
+            }
+
+            await JS.UpdateUrl(url);
+
+            //BreadcrumbLinks.Add(panel.Title, panel.Url);
+        }
 
         await StateHasChangedAsync();
     }

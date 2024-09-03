@@ -7,6 +7,8 @@ public partial class IgnoreRulesPanel
 {
     [Parameter] public StackModel Stack { get; set; }
 
+    public override string Url => $"stacks/{Stack.Id}/edit/ignorerules";
+
     private async Task Add()
     {
         Stack.IgnoreRules.Add(new()

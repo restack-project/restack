@@ -7,5 +7,7 @@ public partial class SettingsPanel
 {
     [Parameter] public StackModel Stack { get; set; }
     [Parameter] public List<string> Validations { get; set; } // TODO check UI
+
+    public override string Url => $"stacks/{Stack.Id}/edit/settings";
 }
 

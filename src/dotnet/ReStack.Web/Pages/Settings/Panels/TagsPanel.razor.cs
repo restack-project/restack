@@ -11,6 +11,7 @@ public partial class TagsPanel
 {
     [Inject] public ITagClient TagClient { get; set; }
 
+    public override string Url { get => "settings/tags"; }
     public List<TagModel> Tags { get; private set; }
 
     protected override async Task OnInitializedAsync()

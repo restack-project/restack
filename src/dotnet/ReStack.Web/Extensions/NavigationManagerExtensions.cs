@@ -14,6 +14,8 @@ public static class NavigationManagerExtensions
     public static string LibraryDetail(this NavigationManager _, int libraryId) => $"/libraries/{libraryId}";
     public static string LibraryEdit(this NavigationManager _, int libraryId) => $"/libraries/{libraryId}/edit";
     public static string Settings(this NavigationManager _) => "/settings";
+    public static string SettingsSsh(this NavigationManager _) => "/settings/ssh";
+    public static string SettingsTags(this NavigationManager _) => "/settings/tags";
 
     public static void NavigateToHome(this NavigationManager navigationManager, bool forceLoad = false)
         => navigationManager.NavigateTo(navigationManager.Stacks(), forceLoad);

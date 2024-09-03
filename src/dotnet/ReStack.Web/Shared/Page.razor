@@ -59,7 +59,7 @@
         <div class="text-sm flex md:block">
 
             <div class="">
-                <NavLink href="stacks" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                <NavLink href="@NavigationManager.Stacks()" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
                     <Icon Type="FontAwesomeIcons.LayerGroup" Size="IconSize.Lg" />
                     @if (!CollapsedSidePanel)
                     {
@@ -75,7 +75,7 @@
                 </NavLink>
             </div>
             <div>
-                <NavLink href="libraries" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                <NavLink href="@NavigationManager.Libraries()" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
                     <Icon Type="FontAwesomeIcons.BookOpen" Size="IconSize.Lg" />
                     @if (!CollapsedSidePanel)
                     {
@@ -90,7 +90,7 @@
                 </NavLink>
             </div>
             <div>
-                <NavLink href="settings" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
+                <NavLink href="@NavigationManager.SettingsSsh()" class='sidepanel-item flex w-full ps-3 px-2 py-4 items-center justify-start hover:bg-gray-200 dark:hover:bg-neutral-600'>
                     <Icon Type="FontAwesomeIcons.Gear" Size="IconSize.Lg" />
                     @if (!CollapsedSidePanel)
                     {

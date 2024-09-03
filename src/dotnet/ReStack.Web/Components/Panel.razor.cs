@@ -12,6 +12,8 @@ public partial class Panel : BaseComponent
     [Parameter] public string Title { get; set; }
     [Parameter] public int Sequence { get; set; }
     
+    public virtual string Url { get; }
+    
     protected bool Visible { get => Parent is null || Parent?.ActivePanel == this; }
 
     protected override async Task OnInitializedAsync()
