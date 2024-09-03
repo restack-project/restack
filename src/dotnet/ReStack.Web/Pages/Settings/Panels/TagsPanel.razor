@@ -3,7 +3,7 @@
 @if (Visible)
 {
     <div class="absolute end-0 top-0 me-2 mt-2 md:me-3 md:mt-3">
-        <button class="btn-primary" @onclick=Add>Add</button>
+        <button class="btn-secondary !p-2 !text-xs" @onclick=Add>Add</button>
     </div>
 
     @if (!IsLoading)
@@ -16,7 +16,7 @@
         }
         else
         {
-            <div class="mt-16">
+            <div class="mt-4">
                 <div class="flex gap-2 items-baseline text-2xs mt-2 mb-1">
                     <div class="w-full ps-1">
                         <p>Name</p>
@@ -25,10 +25,8 @@
                         <p>Color</p>
                     </div>
                     <div class="min-w-10 text-center">
-                        <p>Edit</p>
                     </div>
                     <div class="min-w-10 text-center">
-                        <p>Delete</p>
                     </div>
                 </div>
 

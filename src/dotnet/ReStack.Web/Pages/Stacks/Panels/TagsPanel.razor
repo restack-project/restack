@@ -10,16 +10,16 @@
     }
     else
     {
-        <div class="px-4">
+        <div class="flex flex-wrap">
             @foreach (var tag in Tags)
             {
-                <div>
+                <div class="mb-2 w-full md:w-1/2">
                     <label class="flex items-center justify-start">
                         <InputCheckbox Value="Stack.Tags.Any(x => x.Id == tag.Id)"
                                        ValueChanged="async(v) => await TagToggle(v, tag)"
                                        ValueExpression="() => _"
                                        class="me-2 accent-red-500" />
-                        <span class="">@tag.Name</span>
+                        <span class="inline-flex items-center rounded-md px-2 py-1 text-2xs text-white font-bold" style="background: @tag.HexColor;">@tag.Name</span>
                     </label>
                 </div>
             }

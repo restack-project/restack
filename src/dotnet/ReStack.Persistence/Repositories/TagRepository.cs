@@ -43,7 +43,9 @@ public class TagRepository(
 
     public async Task<List<Tag>> GetAll(CancellationToken cancellationToken = default)
     {
-        var entities = await _context.Tag.ToListAsync(cancellationToken);
+        var entities = await _context.Tag
+            .OrderBy(x => x.Name)
+            .ToListAsync(cancellationToken);
 
         return entities;
     }
