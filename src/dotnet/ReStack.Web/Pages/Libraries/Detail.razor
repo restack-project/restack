@@ -4,7 +4,7 @@
 
 <PageTitle>@Library?.Name - ReStack</PageTitle>
 
-<Page BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+<Page @ref="Page" IsLoading="IsLoading">
     @if (LoadError)
     {
         <p>No library found, go back to the <a href="@NavigationManager.Libraries()" class="link">overview</a></p>

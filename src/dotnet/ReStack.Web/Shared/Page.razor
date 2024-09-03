@@ -18,22 +18,7 @@
             </div>
         </a>
 
-        @if (BreadcrumbLinks.Any())
-        {
-            <div class="hidden md:inline ms-2 text-sm">
-                @for (var index = 0; index < BreadcrumbLinks.Count; index++)
-                {
-                    var link = BreadcrumbLinks.ElementAt(index);
-
-                    <a href="@link.Value" class="mx-2 px-1 py-1 rounded hover:bg-gray-300 dark:hover:bg-neutral-600">@link.Key</a>
-
-                    @if (index != BreadcrumbLinks.Count - 1)
-                    {
-                        <span>/</span>
-                    }
-                }
-            </div>
-        }
+        <Breadcrumb @ref="Breadcrumb" />
 
     </div>
 
@@ -122,12 +107,14 @@
 
     </div>
 
-    <div id="@_contentId" class="relative overflow-auto md:h-[calc(100vh-3.5rem)] h-[calc(100vh-6.75rem)] w-full p-3 md:p-6 bg-gray-200 dark:bg-neutral-800 dark:text-gray-100">
+    <CascadingValue Value="Breadcrumb">
+        <div id="@_contentId" class="relative overflow-auto md:h-[calc(100vh-3.5rem)] h-[calc(100vh-6.75rem)] w-full p-3 md:p-6 bg-gray-200 dark:bg-neutral-800 dark:text-gray-100">
 
-        <Loader Visible="IsLoading" ShowOverlay="true" />
+            <Loader Visible="IsLoading" ShowOverlay="true" />
 
-        @ChildContent
+            @ChildContent
 
-    </div>
+        </div>
+    </CascadingValue>
 
 </div>

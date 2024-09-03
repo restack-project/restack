@@ -3,6 +3,7 @@ using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Libraries;
 
@@ -13,6 +14,7 @@ public partial class Detail
     [Parameter] public string QueryLibraryId { get; set; }
 
     public ComponentLibraryModel Library { get; set; }
+    public Page Page { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -20,16 +22,9 @@ public partial class Detail
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new()
-            {
-                { "Libraries", NavigationManager.Libraries() }
-            };
-
             if (int.TryParse(QueryLibraryId, out var libraryId))
             {
                 Library = await ComponentLibraryClient.Get(libraryId);
-
-                BreadcrumbLinks.Add(Library.Name, $"/libraries/{libraryId}");
             }
             else
             {
@@ -46,6 +41,19 @@ public partial class Detail
         }
 
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Libraries", NavigationManager.Libraries());
+            await Page.Breadcrumb.Add(Library.Name, NavigationManager.LibraryDetail(Library.Id));
+
+            BreadcrumbLoaded = true;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task Sync()

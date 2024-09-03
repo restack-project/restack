@@ -1,8 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Libraries;
 
@@ -11,17 +11,13 @@ public partial class Overview
     [Inject] public IComponentLibraryClient ComponentLibraryClient { get; set; }
 
     public List<ComponentLibraryModel> Libraries { get; set; } = [];
+    public Page Page { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             await SetLoading(true);
-
-            BreadcrumbLinks = new()
-            {
-                { "Libraries", NavigationManager.Libraries() }
-            };
 
             Libraries = await ComponentLibraryClient.GetAll();
         }
@@ -35,6 +31,18 @@ public partial class Overview
         }
 
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Libraries", NavigationManager.Libraries());
+
+            BreadcrumbLoaded = true;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task Add()

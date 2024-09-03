@@ -2,6 +2,7 @@
 using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Stacks;
 
@@ -20,6 +21,7 @@ public partial class Detail
     public StackModel Stack { get; set; }
     public List<JobModel> Jobs { get; set; } = [];
     public bool IsLoadingJobs { get; set; }
+    public Page Page { get; set; }
 
     public override async Task OnStackChanged(StackModel model)
     {
@@ -68,8 +70,6 @@ public partial class Detail
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
-
             if (int.TryParse(QueryStackId, out var stackId))
             {
                 StackId = stackId;
@@ -79,8 +79,6 @@ public partial class Detail
 #pragma warning disable CS4014
                 Task.Run(LoadMoreJobs);
 #pragma warning restore CS4014
-
-                BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(StackId));
             }
             else
             {
@@ -97,6 +95,19 @@ public partial class Detail
         }
 
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
+            await Page.Breadcrumb.Add(Stack.Name, NavigationManager.StackDetail(StackId));
+
+            BreadcrumbLoaded = true;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task LoadMoreJobs()

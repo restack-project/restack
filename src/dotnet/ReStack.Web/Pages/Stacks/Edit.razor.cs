@@ -9,6 +9,7 @@ using ReStack.Web.Components;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
 using ReStack.Web.Pages.Stacks.Models;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Stacks;
 
@@ -34,14 +35,13 @@ public partial class Edit
     public EditContext EditContext { get; set; }
     public List<string> Validations { get; private set; } = [];
     public PanelSelector PanelSelector { get; set; }
+    public Page Page { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             await SetLoading(true);
-
-            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
 
             if (bool.TryParse(QueryShowEditor, out var showEditor))
             {
@@ -53,9 +53,6 @@ public partial class Edit
                 if (int.TryParse(QueryStackId, out var stackId))
                 {
                     Stack = await StackClient.Get(stackId);
-
-                    BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(stackId));
-                    BreadcrumbLinks.Add("Edit", NavigationManager.StackEdit(stackId));
                 }
                 else
                 {
@@ -71,8 +68,6 @@ public partial class Edit
                 };
 
                 ShowEditor = false;
-
-                BreadcrumbLinks.Add("Add", $"stacks/add");
             }
 
             ComponentLibraries = await ComponentLibraryClient.GetAll();
@@ -123,6 +118,23 @@ public partial class Edit
             }
         }
 
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
+            
+            if (Stack.Id != 0)
+            {
+                await Page.Breadcrumb.Add(Stack.Name, NavigationManager.StackDetail(Stack.Id));
+                await Page.Breadcrumb.Add("Edit", NavigationManager.StackEdit(Stack.Id));
+            }
+            else
+            {
+                await Page.Breadcrumb.Add("Add", NavigationManager.StackAdd());
+            }
+
+            BreadcrumbLoaded = true;
+        }
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -144,9 +156,9 @@ public partial class Edit
             {
                 Stack = await StackClient.Add(Stack);
 
-                BreadcrumbLinks.Remove("Add");
-                BreadcrumbLinks.Add(Stack.Name, $"stacks/{Stack.Id}/");
-                BreadcrumbLinks.Add("Edit", $"stacks/{Stack.Id}/edit");
+                await Page.Breadcrumb.Remove("Add");
+                await Page.Breadcrumb.Add(Stack.Name, NavigationManager.StackDetail(Stack.Id));
+                await Page.Breadcrumb.Add("Edit", NavigationManager.StackEdit(Stack.Id));
 
                 await JS.UpdateUrl($"{NavigationManager.BaseUri}stacks/{Stack.Id}/edit");
 

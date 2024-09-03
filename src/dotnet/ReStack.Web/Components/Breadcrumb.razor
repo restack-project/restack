@@ -1,0 +1,16 @@
+﻿@if (Links is not null && Links.Any())
+{
+    <div class="hidden md:inline ms-2 text-sm">
+        @for (var index = 0; index < Links.Count; index++)
+        {
+            var link = Links.ElementAt(index);
+
+            <a href="@link.Value" class="mx-2 px-1 py-1 rounded hover:bg-gray-300 dark:hover:bg-neutral-600">@link.Key</a>
+
+            @if (index != Links.Count - 1)
+            {
+                <span>/</span>
+            }
+        }
+    </div>
+}

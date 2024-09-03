@@ -3,6 +3,7 @@ using ReStack.Common.Interfaces.Clients;
 using ReStack.Common.Models;
 using ReStack.Web.Extensions;
 using ReStack.Web.Modals;
+using ReStack.Web.Shared;
 
 namespace ReStack.Web.Pages.Stacks;
 
@@ -21,6 +22,7 @@ public partial class Overview
     public IEnumerable<StackModel> Stacks { get; private set; } = [];
     public ICollection<StackModel> SelectedStacks { get; private set; } = [];
     public TagModel SelectedTag { get; private set; }
+    public Page Page { get; set; }
 
     public override async Task OnStackChanged(StackModel model)
     {
@@ -65,8 +67,6 @@ public partial class Overview
         {
             await SetLoading(true);
 
-            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
-
             _stacks = await StackClient.GetAll();
             _tags = await TagClient.GetAll();
 
@@ -87,6 +87,18 @@ public partial class Overview
         }
 
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
+
+            BreadcrumbLoaded = true;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task Search()

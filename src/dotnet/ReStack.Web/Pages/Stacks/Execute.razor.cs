@@ -59,7 +59,7 @@ public partial class Execute
     {
         try
         {
-            BreadcrumbLinks = new() { { "Stacks", NavigationManager.Stacks() } };
+            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
 
             if (int.TryParse(QueryStackId, out var stackId) && int.TryParse(QueryJobId, out var jobId))
             {
@@ -71,9 +71,6 @@ public partial class Execute
 
                 if (Job is not null)
                 {
-                    BreadcrumbLinks.Add(Stack.Name, NavigationManager.StackDetail(stackId));
-                    BreadcrumbLinks.Add($"#{Job.Sequence}", $"execute/{JobId}");
-
                     await Search();
                 }
                 else
@@ -92,6 +89,20 @@ public partial class Execute
         }
 
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        {
+            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
+            await Page.Breadcrumb.Add(Stack.Name, NavigationManager.StackDetail(StackId));
+            await Page.Breadcrumb.Add($"#{Job.Sequence}", $"execute/{JobId}");
+
+            BreadcrumbLoaded = true;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task ExecuteNew()

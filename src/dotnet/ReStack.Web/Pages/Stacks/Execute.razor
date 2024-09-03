@@ -4,7 +4,7 @@
 
 <PageTitle>@Stack?.Name - Execute - ReStack</PageTitle>
 
-<Page @ref="Page" BreadcrumbLinks="BreadcrumbLinks" IsLoading="IsLoading">
+<Page @ref="Page" IsLoading="IsLoading">
     @if (LoadError)
     {
         <p>No stack found, go back to the <a href="@NavigationManager.Stacks()" class="link">overview</a></p>

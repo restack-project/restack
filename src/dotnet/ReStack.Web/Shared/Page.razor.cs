@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using ReStack.Web.Components;
 using ReStack.Web.Extensions;
 
 namespace ReStack.Web.Shared;
@@ -13,8 +14,8 @@ public partial class Page
     [Inject] public ILocalStorageService LocalStorage { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public new Dictionary<string, string> BreadcrumbLinks { get; set; } = [];
 
+    public Breadcrumb Breadcrumb { get; set; }
     public bool CollapsedSidePanel { get; set; } = true;
     public bool EnabledDarkMode { get; set; }
 

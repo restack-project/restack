@@ -21,8 +21,8 @@ public class BaseComponent : ComponentBase
     [Inject] public IBroker Broker { get; set; }
     [Inject] public IOptions<WebSettings> WebSettings { get; set; }
 
-    public Dictionary<string, string> BreadcrumbLinks { get; set; }
     public bool LoadError { get; set; }
+    public bool BreadcrumbLoaded { get; set; }
 
     protected async Task SetLoading(bool isLoading, EventCallback<bool> another)
     {
