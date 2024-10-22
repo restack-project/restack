@@ -59,8 +59,6 @@ public partial class Execute
     {
         try
         {
-            await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
-
             if (int.TryParse(QueryStackId, out var stackId) && int.TryParse(QueryJobId, out var jobId))
             {
                 StackId = stackId;
