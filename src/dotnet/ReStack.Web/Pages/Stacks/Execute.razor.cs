@@ -93,7 +93,7 @@ public partial class Execute
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!BreadcrumbLoaded && !IsLoading && !LoadError)
+        if (!BreadcrumbLoaded && !IsLoading && !LoadError && Stack is object && Job is object)
         {
             await Page.Breadcrumb.Add("Stacks", NavigationManager.Stacks());
             await Page.Breadcrumb.Add(Stack.Name, NavigationManager.StackDetail(StackId));
